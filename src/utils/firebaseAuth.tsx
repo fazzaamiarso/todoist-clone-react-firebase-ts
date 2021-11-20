@@ -5,20 +5,12 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
-export const handleSignUp = async (email: string, password: string) => {
-  try {
-    await createUserWithEmailAndPassword(auth, email, password);
-  } catch (err) {
-    alert(err);
-  }
+export const handleSignUp = (email: string, password: string) => {
+  return createUserWithEmailAndPassword(auth, email, password);
 };
-export const handleSignIn = async (email: string, password: string) => {
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-  } catch (err) {
-    alert(err);
-  }
+export const handleSignIn = (email: string, password: string) => {
+  return signInWithEmailAndPassword(auth, email, password);
 };
-export const handleSignOut = async () => {
-  await signOut(auth);
+export const handleSignOut = () => {
+  return signOut(auth);
 };

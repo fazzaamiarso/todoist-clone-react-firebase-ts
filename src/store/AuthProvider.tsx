@@ -1,4 +1,4 @@
-import React, { createContext, ReactChild, useEffect, useState } from "react";
+import React, { createContext, ReactNode, useEffect, useState } from "react";
 import { User, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
 
@@ -10,7 +10,7 @@ export const AuthContext = createContext<AuthContextInterface>({
   user: null,
 });
 
-const AuthProvider: React.FC<{ children: ReactChild }> = ({ children }) => {
+const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<AuthContextInterface["user"]>(null);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const AuthProvider: React.FC<{ children: ReactChild }> = ({ children }) => {
     });
 
     return () => unsubscribe();
-  }, [user]);
+  }, []);
 
   const contextValue = {
     user,

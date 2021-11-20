@@ -19,6 +19,7 @@ import {
 
 const AuthPage: React.FC = () => {
   const { user } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [emailValue, setEmailValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
@@ -30,19 +31,32 @@ const AuthPage: React.FC = () => {
     setPasswordValue(e.target.value);
   };
 
-  const signUpHandler = () => {
-    handleSignUp(emailValue, passwordValue);
-    alert("signedUp");
+  const signUpHandler = async () => {
+    try {
+      await handleSignUp(emailValue, passwordValue);
+    } catch (err) {
+      alert(err);
+    }
   };
-  const signInHandler = () => {
-    handleSignIn(emailValue, passwordValue);
+  const signInHandler = async () => {
+    try {
+      await handleSignIn(emailValue, passwordValue);
+    } catch (err) {
+      alert(err);
+    }
   };
   const signOutHandler = () => {
     handleSignOut();
   };
 
   return (
-    <Container maxW="100%" centerContent>
+    <Container
+      maxW="100%"
+      centerContent
+      display="flex"
+      justifyContent="center"
+      height="100vh"
+    >
       <Heading as="h1">Auth Page</Heading>
       <VStack maxH="100%" spacing={4}>
         <FormControl isRequired>
@@ -66,37 +80,44 @@ const AuthPage: React.FC = () => {
           />
         </FormControl>
         <Flex justifyContent="space-evenly">
-          <Button
-            width="100%"
-            bg="blue.400"
-            mr={4}
-            color="white"
-            onClick={signInHandler}
-          >
-            Log in
-          </Button>
-          <Button
-            width="100%"
-            bg="blue.400"
-            color="white"
-            onClick={signUpHandler}
-          >
-            Sign Up
-          </Button>
+          {!user && (
+            <Button
+              width="100%"
+              bg="blue.400"
+              mr={4}
+              color="white"
+              onClick={signInHandler}
+            >
+              Log in
+            </Button>
+          )}
+          {!user && (
+            <Button
+              width="100%"
+              bg="blue.400"
+              color="white"
+              onClick={signUpHandler}
+            >
+              Sign Up
+            </Button>
+          )}
         </Flex>
-        <Button
-          width="100%"
-          bg="blue.400"
-          color="white"
-          onClick={signOutHandler}
-        >
-          Sign Out
-        </Button>
+        {isLoading && <h1>Loading</h1>}
+        {user && (
+          <Button
+            width="100%"
+            bg="blue.400"
+            color="white"
+            onClick={signOutHandler}
+          >
+            Sign Out
+          </Button>
+        )}
       </VStack>
       <VStack>
         <Heading>User</Heading>
-        <Text>{user!! && user.email}</Text>
-        <Text>{user!! && user.uid}</Text>
+        <Text>{user && user.email}</Text>
+        <Text>{user && user.uid}</Text>
       </VStack>
     </Container>
   );

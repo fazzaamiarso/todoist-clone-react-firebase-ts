@@ -5,13 +5,16 @@ import App from "./App";
 import "./utils/firebase";
 import AuthProvider from "./store/AuthProvider";
 import CSSReset from "@chakra-ui/css-reset";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <CSSReset />
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <CSSReset />
+        <App />
+      </AuthProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
