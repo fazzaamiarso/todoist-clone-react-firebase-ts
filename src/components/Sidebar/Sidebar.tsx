@@ -3,11 +3,8 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import ProjectAccordion from "./ProjectAccordion";
 import { Button } from "@chakra-ui/button";
-
-interface Props {
-  isDrawerOpen: boolean;
-  onClose: () => void;
-}
+import { useDisclosure } from "@chakra-ui/react";
+import ProjectModal from "../Shared/ProjectModal";
 
 const Sidebar: React.FC = () => {
   return (
