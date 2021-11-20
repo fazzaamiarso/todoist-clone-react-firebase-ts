@@ -1,6 +1,8 @@
 import { Link, VStack } from "@chakra-ui/layout";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import ProjectAccordion from "./ProjectAccordion";
+import { Button } from "@chakra-ui/button";
 
 interface Props {
   isDrawerOpen: boolean;
@@ -11,15 +13,36 @@ const Sidebar: React.FC = () => {
   return (
     <Container>
       <VStack>
-        <Link as={NavLink} to="/app/inbox">
+        <Button
+          as={NavLink}
+          to="/app/inbox"
+          variant="ghost"
+          width="full"
+          justifyContent="flex-start"
+        >
           Inbox
-        </Link>
-        <Link as={NavLink} to="/app/today">
+        </Button>
+        <Button
+          as={NavLink}
+          to="/app/today"
+          variant="ghost"
+          width="full"
+          justifyContent="flex-start"
+        >
           Today
-        </Link>
-        <Link as={NavLink} to="/app/upcoming">
+        </Button>
+        <Button
+          as={NavLink}
+          to="/app/upcoming"
+          variant="ghost"
+          width="full"
+          justifyContent="flex-start"
+        >
           Upcoming
-        </Link>
+        </Button>
+      </VStack>
+      <VStack>
+        <ProjectAccordion />
       </VStack>
     </Container>
   );
@@ -28,11 +51,11 @@ const Sidebar: React.FC = () => {
 const Container = styled.div`
   height: 100vh;
   width: 300px;
-  background-color: red;
+  background-color: rgba(0, 0, 0, 0.1);
   padding-top: 5rem;
 
   .active {
-    color: white;
+    background-color: rgba(0, 0, 0, 0.05);
   }
 `;
 

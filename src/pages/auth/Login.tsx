@@ -25,8 +25,9 @@ const Login: React.FC = () => {
     try {
       await handleSignIn(emailValue, passwordValue);
       setIsLoading(false);
-      navigate(-1);
+      navigate("/");
     } catch (err) {
+      setIsLoading(false);
       alert(err);
     }
   };
