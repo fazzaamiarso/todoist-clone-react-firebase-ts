@@ -7,15 +7,16 @@ import {
   Box,
   IconButton,
   useDisclosure,
+  Text,
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
-import { AuthContext } from "../../store/AuthProvider";
+import { TodoContext } from "../../store/TodoProvider";
 import ProjectModal from "../Shared/ProjectModal";
 import ProjectItem from "./ProjectItem";
 
 const ProjectAccordion: React.FC = () => {
-  const { user } = useContext(AuthContext);
+  const { projects } = useContext(TodoContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -39,7 +40,19 @@ const ProjectAccordion: React.FC = () => {
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4} as="ul">
-            <ProjectItem />
+            {projects.length === 0 ? (
+              <Text>There is no projects to show</Text>
+            ) : (
+              projects.map((project) => {
+                return (
+                  <ProjectItem
+                    key={project.id}
+                    id={project.id}
+                    projectName={project.name}
+                  />
+                );
+              })
+            )}
           </AccordionPanel>
         </AccordionItem>
       </Accordion>

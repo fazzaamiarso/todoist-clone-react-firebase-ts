@@ -1,21 +1,32 @@
 import { Button } from "@chakra-ui/button";
 import { Box, HStack } from "@chakra-ui/layout";
+import { useContext } from "react";
 import { NavLink, useParams } from "react-router-dom";
+import { TodoContext } from "../../store/TodoProvider";
 
-const ProjectItem: React.FC = () => {
+interface Props {
+  id: string;
+  projectName: string;
+}
+
+const ProjectItem: React.FC<Props> = ({ id, projectName }) => {
+  const { tasks } = useContext(TodoContext);
+  const tasksCount = tasks
+    .filter((task) => task.projectId === id)
+    .reduce((totalCount) => totalCount + 1, 0);
   return (
     <HStack as="li">
       <Button
         as={NavLink}
-        to={`/projects/something`}
+        to={`/projects/${id}`}
         variant="ghost"
         color="black"
         width="full"
         justifyContent="flex-start"
       >
-        Welcome
+        {projectName}
         <Box as="span" ml="auto">
-          8
+          {tasksCount}
         </Box>
       </Button>
     </HStack>

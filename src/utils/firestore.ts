@@ -39,7 +39,7 @@ export const createNewProject = async ({
   name,
   userId,
 }: Omit<Project, "id">) => {
-  await addDoc(taskDbRef, {
+  await addDoc(projectsDbRef, {
     name,
     userId,
     timestamp: serverTimestamp(),

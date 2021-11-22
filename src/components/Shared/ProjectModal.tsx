@@ -31,6 +31,7 @@ const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
     } catch (error) {
       console.log(error);
     }
+    onClose();
     setProjectInput("");
   };
 

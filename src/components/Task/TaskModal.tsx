@@ -9,6 +9,7 @@ import {
   Input,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
+import { useParams } from "react-router";
 import { TodoContext } from "../../store/TodoProvider";
 import { createNewTask } from "../../utils/firestore";
 import ActionButton from "../Shared/ActionButton";
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
+  const { projectId } = useParams();
   const { user } = useContext(TodoContext);
   const [taskInput, setTaskInput] = useState("");
 
@@ -30,13 +32,14 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
     try {
       await createNewTask({
         taskName: taskInput,
-        projectId: taskInput,
+        projectId: projectId ?? "",
         userId: user!.uid,
         due: "",
       });
     } catch (error) {
       console.log(error);
     }
+    onClose();
     setTaskInput("");
   };
 
