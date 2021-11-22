@@ -26,13 +26,15 @@ const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
   };
 
   const addNewProject = async () => {
+    if (projectInput === "") return;
+
+    onClose();
+    setProjectInput("");
     try {
       await createNewProject({ name: projectInput, userId: user!.uid });
     } catch (error) {
       console.log(error);
     }
-    onClose();
-    setProjectInput("");
   };
 
   return (

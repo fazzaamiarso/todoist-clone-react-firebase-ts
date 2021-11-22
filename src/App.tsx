@@ -4,6 +4,7 @@ import Content from "./components/Content/Content";
 import Login from "./pages/auth/Login";
 import PrivateRoute from "./pages/auth/PrivateRoute";
 import Signup from "./pages/auth/Signup";
+import Inbox from "./pages/Inbox";
 import Project from "./pages/Project";
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
             </PrivateRoute>
           }
         >
-          <Route path="app/inbox" element={<></>} />
+          <Route path="app/inbox" element={<Inbox></Inbox>} />
           <Route path="app/today" element={<></>} />
           <Route path="app/upcoming" element={<></>} />
           <Route path="projects/:projectId" element={<Project />} />

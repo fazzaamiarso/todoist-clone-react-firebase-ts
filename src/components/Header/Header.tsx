@@ -4,7 +4,7 @@ import { Flex, Spacer } from "@chakra-ui/layout";
 import { HStack, useDisclosure } from "@chakra-ui/react";
 import { useContext } from "react";
 import { FaHome, FaBars, FaPlus } from "react-icons/fa";
-import { AuthContext } from "../../store/AuthProvider";
+import { Link as BaseLink } from "react-router-dom";
 import { TodoContext } from "../../store/TodoProvider";
 import { handleSignOut } from "../../utils/firebaseAuth";
 import TaskModal from "../Task/TaskModal";
@@ -41,6 +41,8 @@ const Header: React.FC = () => {
             icon={<FaHome />}
             variant="ghost"
             color="white"
+            to="/app/inbox"
+            as={BaseLink}
           />
         </HStack>
         <Spacer />

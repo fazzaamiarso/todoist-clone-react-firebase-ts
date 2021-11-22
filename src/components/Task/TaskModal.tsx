@@ -29,6 +29,10 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
   };
 
   const addNewTask = async () => {
+    if (taskInput === "") return;
+
+    onClose();
+    setTaskInput("");
     try {
       await createNewTask({
         taskName: taskInput,
@@ -39,8 +43,6 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
     } catch (error) {
       console.log(error);
     }
-    onClose();
-    setTaskInput("");
   };
 
   return (
