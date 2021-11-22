@@ -3,8 +3,6 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   signInWithEmailAndPassword,
-  setPersistence,
-  browserLocalPersistence,
 } from "firebase/auth";
 
 export const handleSignUp = (email: string, password: string) => {

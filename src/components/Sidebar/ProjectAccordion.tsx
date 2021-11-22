@@ -8,11 +8,14 @@ import {
   IconButton,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useContext, useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
+import { AuthContext } from "../../store/AuthProvider";
 import ProjectModal from "../Shared/ProjectModal";
 import ProjectItem from "./ProjectItem";
 
 const ProjectAccordion: React.FC = () => {
+  const { user } = useContext(AuthContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -35,7 +38,7 @@ const ProjectAccordion: React.FC = () => {
               />
             </AccordionButton>
           </h2>
-          <AccordionPanel pb={4}>
+          <AccordionPanel pb={4} as="ul">
             <ProjectItem />
           </AccordionPanel>
         </AccordionItem>

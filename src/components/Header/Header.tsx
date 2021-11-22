@@ -5,14 +5,15 @@ import { HStack, useDisclosure } from "@chakra-ui/react";
 import { useContext } from "react";
 import { FaHome, FaBars, FaPlus } from "react-icons/fa";
 import { AuthContext } from "../../store/AuthProvider";
+import { TodoContext } from "../../store/TodoProvider";
 import { handleSignOut } from "../../utils/firebaseAuth";
 import TaskModal from "../Task/TaskModal";
 
 const Header: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user } = useContext(AuthContext);
-  const signOutHandler = () => {
-    handleSignOut();
+  const { user } = useContext(TodoContext);
+  const signOutHandler = async () => {
+    await handleSignOut();
   };
 
   return (

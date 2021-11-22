@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode, useContext } from "react";
 import { Route, Navigate } from "react-router-dom";
-import { AuthContext } from "../../store/AuthProvider";
+import { TodoContext } from "../../store/TodoProvider";
 
 interface RouteProps {
   children: ReactNode;
@@ -8,9 +8,9 @@ interface RouteProps {
 }
 
 const PrivateRoute: React.FC<RouteProps> = ({ children, redirectTo }) => {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(TodoContext);
 
-  return user ? <>{children}</> : <Navigate to={redirectTo} />;
+  return user!! ? <>{children}</> : <Navigate to={redirectTo} />;
 };
 
 export default PrivateRoute;

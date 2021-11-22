@@ -6,6 +6,9 @@ import { Link as BaseLink, useNavigate } from "react-router-dom";
 import { Container } from "@chakra-ui/react";
 import { useState } from "react";
 import { handleSignUp } from "../../utils/firebaseAuth";
+import { setDoc, doc } from "@firebase/firestore";
+import { usersDbRef } from "../../utils/firestore";
+import { firestore } from "../../utils/firebase";
 
 const Signup: React.FC = () => {
   let navigate = useNavigate();
@@ -21,8 +24,13 @@ const Signup: React.FC = () => {
 
   const signUpHandler = async () => {
     try {
-      await handleSignUp(emailValue, passwordValue);
-      navigate("/login", { replace: true });
+      const newUser = await handleSignUp(emailValue, passwordValue);
+      await setDoc(doc(firestore, "users", newUser.user.uid), {
+        email: newUser.user.email,
+        name: newUser.user.displayName,
+        id: newUser.user.uid,
+      });
+      navigate("/", { replace: true });
     } catch (err) {
       alert(err);
     }
