@@ -1,6 +1,7 @@
-import { Box, HStack, Icon, Text } from "@chakra-ui/react";
-import { doc, updateDoc } from "@firebase/firestore";
+import { Box, HStack, Icon, Spacer, Text } from "@chakra-ui/react";
+import { deleteDoc, doc, updateDoc } from "@firebase/firestore";
 import { firestore } from "../../utils/firebase";
+import PopoverTask from "../Shared/Popover/PopoverTask";
 import TaskCheckbox from "./TaskCheckbox";
 
 interface Props {
@@ -16,8 +17,12 @@ const TaskItem: React.FC<Props> = ({ taskName, completed, id }) => {
     });
   };
 
+  const deleteTaskHandler = async () => {
+    await deleteDoc(doc(firestore, "tasks", `${id}`));
+  };
+
   return (
-    <HStack as="li">
+    <HStack as="li" w="full">
       <TaskCheckbox
         isCompleted={completed}
         onToggleCompleted={toggleCompletedHandler}
@@ -28,6 +33,8 @@ const TaskItem: React.FC<Props> = ({ taskName, completed, id }) => {
       >
         {taskName}
       </Text>
+      <Spacer />
+      <PopoverTask onDeleteTask={deleteTaskHandler} />
     </HStack>
   );
 };

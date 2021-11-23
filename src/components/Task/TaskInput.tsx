@@ -1,5 +1,5 @@
 import { ButtonGroup, FormControl, Input } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TodoContext } from "../../store/TodoProvider";
 import { createNewTask } from "../../utils/firestore";
@@ -12,7 +12,12 @@ interface Props {
 const TaskInput: React.FC<Props> = ({ onCloseEditor }) => {
   const { projectId } = useParams();
   const { user } = useContext(TodoContext);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [taskInput, setTaskInput] = useState("");
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTaskInput(e.target.value);
@@ -38,12 +43,14 @@ const TaskInput: React.FC<Props> = ({ onCloseEditor }) => {
         placeholder="Task name"
         value={taskInput}
         onChange={changeHandler}
+        ref={inputRef}
       />
       <ButtonGroup mt={2}>
         <ActionButton
           btnType="primary"
           text="Add task"
           onClick={AddTaskHandler}
+          isDisabled={taskInput === ""}
         />
         <ActionButton
           btnType="secondary"
