@@ -1,5 +1,5 @@
 import { Avatar } from "@chakra-ui/avatar";
-import { Button, IconButton } from "@chakra-ui/button";
+import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
 import { Flex, Spacer } from "@chakra-ui/layout";
 import { HStack, useDisclosure } from "@chakra-ui/react";
 import { useContext } from "react";
@@ -29,22 +29,16 @@ const Header: React.FC = () => {
         zIndex="100"
         width="100%"
       >
-        <HStack>
-          <IconButton
-            aria-label="menu"
-            icon={<FaBars />}
-            variant="ghost"
-            color="white"
-          />
+        <ButtonGroup variant="ghost">
+          <IconButton aria-label="menu" icon={<FaBars />} color="white" />
           <IconButton
             aria-label="home"
             icon={<FaHome />}
-            variant="ghost"
             color="white"
             to="/app/inbox"
             as={BaseLink}
           />
-        </HStack>
+        </ButtonGroup>
         <Spacer />
         <HStack>
           <IconButton

@@ -13,7 +13,7 @@ const Project: React.FC = () => {
   const filteredTasks = tasks.filter((task) => task.projectId === projectId);
   return (
     <>
-      <Main projectName={projectName}>
+      <Main projectName={projectName} projectId={projectId ?? ""}>
         {filteredTasks.length === 0
           ? []
           : filteredTasks.map((task) => {
