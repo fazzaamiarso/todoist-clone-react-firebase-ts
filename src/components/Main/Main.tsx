@@ -1,6 +1,7 @@
 import { Container, Heading } from "@chakra-ui/layout";
 import { VStack } from "@chakra-ui/react";
 import { ReactNode, useContext } from "react";
+import PopoverSchedule from "../Shared/Popover/PopoverSchedule";
 import TaskForm from "../Task/TaskForm";
 import MainHeader from "./MainHeader";
 

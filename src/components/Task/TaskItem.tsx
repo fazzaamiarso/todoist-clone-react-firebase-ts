@@ -34,7 +34,7 @@ const TaskItem: React.FC<Props> = ({ taskName, completed, id }) => {
         {taskName}
       </Text>
       <Spacer />
-      <PopoverTask onDeleteTask={deleteTaskHandler} />
+      {!completed && <PopoverTask onDeleteTask={deleteTaskHandler} />}
     </HStack>
   );
 };

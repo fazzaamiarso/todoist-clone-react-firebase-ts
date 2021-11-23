@@ -3,11 +3,7 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverHeader,
   PopoverBody,
-  PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton,
   Button,
   Portal,
   IconButton,
@@ -16,19 +12,27 @@ import { FaEllipsisH } from "react-icons/fa";
 
 interface Props {
   children: ReactNode;
+  customTriggerIcon?: JSX.Element;
+  customTriggerText?: string;
 }
 
-const PopoverBase: React.FC<Props> = ({ children }) => {
+const PopoverBase: React.FC<Props> = ({
+  children,
+  customTriggerIcon,
+  customTriggerText,
+}) => {
   return (
     <Popover isLazy>
       <PopoverTrigger>
-        <IconButton
-          icon={<FaEllipsisH />}
-          aria-label="popover trigger"
-          variant="ghost"
-        >
-          Trigger
-        </IconButton>
+        {customTriggerIcon!! ? (
+          <Button leftIcon={customTriggerIcon}>{customTriggerText}</Button>
+        ) : (
+          <IconButton
+            icon={<FaEllipsisH />}
+            aria-label="popover trigger"
+            variant="ghost"
+          />
+        )}
       </PopoverTrigger>
       <Portal>
         <PopoverContent
