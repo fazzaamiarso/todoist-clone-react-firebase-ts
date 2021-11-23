@@ -1,6 +1,7 @@
 import { Container, Heading } from "@chakra-ui/layout";
 import { VStack } from "@chakra-ui/react";
 import { ReactNode, useContext } from "react";
+import TaskForm from "../Task/TaskForm";
 import MainHeader from "./MainHeader";
 
 interface Props {
@@ -11,9 +12,12 @@ interface Props {
 
 const Main: React.FC<Props> = ({ children, projectName, projectId }) => {
   return (
-    <Container centerContent mx="auto" maxW="md" mt="3rem">
+    <Container maxW="3xl" w="full" mt="3rem">
       <MainHeader projectName={projectName} projectId={projectId} />
-      <VStack as="ul">{children}</VStack>
+      <VStack as="ul" alignItems="flex-start">
+        {children}
+      </VStack>
+      <TaskForm />
     </Container>
   );
 };

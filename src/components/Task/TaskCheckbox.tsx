@@ -10,12 +10,13 @@ interface Props {
 const TaskCheckbox: React.FC<Props> = ({ isCompleted, onToggleCompleted }) => {
   return (
     <Box
-      border="1px"
-      borderColor="gray.200"
+      border={isCompleted ? "none" : "1px"}
+      borderColor="gray.400"
       borderRadius="50%"
       w="20px"
       h="20px"
       cursor="pointer"
+      mr="2"
       onClick={onToggleCompleted}
     >
       {!isCompleted && (
@@ -27,7 +28,9 @@ const TaskCheckbox: React.FC<Props> = ({ isCompleted, onToggleCompleted }) => {
           _hover={{ opacity: ".3", transition: "opacity .25s" }}
         />
       )}
-      {isCompleted && <Icon as={FaCheckCircle} w="20px" h="20px" />}
+      {isCompleted && (
+        <Icon as={FaCheckCircle} w="20px" h="20px" color="gray.500" />
+      )}
     </Box>
   );
 };

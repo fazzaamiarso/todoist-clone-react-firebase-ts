@@ -6,7 +6,6 @@ import {
   useEditableControls,
   ButtonGroup,
   Button,
-  Box,
 } from "@chakra-ui/react";
 
 interface Props {
@@ -31,7 +30,7 @@ const EditableControls: React.FC = () => {
 const EditableTitle: React.FC<Props> = ({ initialValue, onChangeTitle }) => {
   const submitHandler = (currentValue: string) => {
     if (currentValue === initialValue) return;
-    // onChangeTitle(currentValue);
+    onChangeTitle(currentValue);
   };
 
   return (
@@ -42,8 +41,9 @@ const EditableTitle: React.FC<Props> = ({ initialValue, onChangeTitle }) => {
       submitOnBlur={false}
       fontSize="2xl"
       fontWeight="bold"
+      selectAllOnFocus={false}
     >
-      <EditablePreview />
+      <EditablePreview _hover={{ background: "gray.300" }} px={2} />
       <EditableInput mb={4} />
       <EditableControls />
     </Editable>

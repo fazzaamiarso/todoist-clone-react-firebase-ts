@@ -22,7 +22,12 @@ const TaskItem: React.FC<Props> = ({ taskName, completed, id }) => {
         isCompleted={completed}
         onToggleCompleted={toggleCompletedHandler}
       />
-      <Text textDecor={completed ? "line-through" : "none"}>{taskName}</Text>
+      <Text
+        textDecor={completed ? "line-through" : "none"}
+        color={completed ? "gray.400" : "black"}
+      >
+        {taskName}
+      </Text>
     </HStack>
   );
 };
