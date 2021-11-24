@@ -8,6 +8,7 @@ export const usersDbRef = collection(firestore, "users");
 export interface Project {
   name: string;
   userId: string;
+  color: string;
   id: string;
 }
 
@@ -38,10 +39,12 @@ export const createNewTask = async ({
 export const createNewProject = async ({
   name,
   userId,
+  color,
 }: Omit<Project, "id">) => {
   await addDoc(projectsDbRef, {
     name,
     userId,
+    color,
     timestamp: serverTimestamp(),
   });
 };

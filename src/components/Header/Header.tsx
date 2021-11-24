@@ -9,7 +9,11 @@ import { TodoContext } from "../../store/TodoProvider";
 import { handleSignOut } from "../../utils/firebaseAuth";
 import TaskModal from "../Task/TaskModal";
 
-const Header: React.FC = () => {
+interface Props {
+  onToggle: () => void;
+}
+
+const Header: React.FC<Props> = ({ onToggle }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user } = useContext(TodoContext);
   const signOutHandler = async () => {
@@ -30,7 +34,12 @@ const Header: React.FC = () => {
         width="100%"
       >
         <ButtonGroup variant="ghost">
-          <IconButton aria-label="menu" icon={<FaBars />} color="white" />
+          <IconButton
+            aria-label="menu"
+            icon={<FaBars />}
+            color="white"
+            onClick={onToggle}
+          />
           <IconButton
             aria-label="home"
             icon={<FaHome />}

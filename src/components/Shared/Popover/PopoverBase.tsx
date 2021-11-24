@@ -34,17 +34,15 @@ const PopoverBase: React.FC<Props> = ({
           />
         )}
       </PopoverTrigger>
-      <Portal>
-        <PopoverContent
-          w="max"
-          _focus={{ border: "1px", borderColor: "gray.300" }}
-          boxShadow="md"
-        >
-          <PopoverBody display="flex" flexDir="column">
-            {children}
-          </PopoverBody>
-        </PopoverContent>
-      </Portal>
+      <PopoverContent
+        w="max"
+        _focus={{ border: "1px", borderColor: "gray.300" }}
+        boxShadow="md"
+      >
+        <PopoverBody display="flex" flexDir="column">
+          {children}
+        </PopoverBody>
+      </PopoverContent>
     </Popover>
   );
 };

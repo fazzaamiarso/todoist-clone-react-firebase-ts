@@ -1,3 +1,4 @@
+import { useDisclosure } from "@chakra-ui/hooks";
 import { Flex } from "@chakra-ui/layout";
 import { ReactNode } from "react";
 import { Outlet } from "react-router-dom";
@@ -9,11 +10,13 @@ interface Props {
 }
 
 const Content: React.FC<Props> = ({ children }) => {
+  const { isOpen, onToggle: onToggleBar } = useDisclosure();
+
   return (
     <>
-      <Header />
+      <Header onToggle={onToggleBar} />
       <Flex width="100vw" minH="100vh">
-        <Sidebar />
+        <Sidebar isOpen={isOpen} />
         <Flex alignItems="center" flexDir="column" mx="auto" width="100%">
           <Outlet />
         </Flex>

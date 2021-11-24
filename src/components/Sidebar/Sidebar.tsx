@@ -1,14 +1,16 @@
 import { Link, VStack } from "@chakra-ui/layout";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { NavLink } from "react-router-dom";
 import ProjectAccordion from "./ProjectAccordion";
 import { Button } from "@chakra-ui/button";
-import { useDisclosure } from "@chakra-ui/react";
-import ProjectModal from "../Shared/ProjectModal";
 
-const Sidebar: React.FC = () => {
+interface Props {
+  isOpen: boolean;
+}
+
+const Sidebar: React.FC<Props> = ({ isOpen }) => {
   return (
-    <Container>
+    <Container isOpen={isOpen}>
       <VStack>
         <Button
           as={NavLink}
@@ -45,9 +47,10 @@ const Sidebar: React.FC = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ isOpen: boolean }>`
   height: 100vh;
-  width: 300px;
+  width: ${({ isOpen }) => (isOpen ? "300px" : "0")};
+  opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
   background-color: rgba(0, 0, 0, 0.1);
   padding-top: 5rem;
 

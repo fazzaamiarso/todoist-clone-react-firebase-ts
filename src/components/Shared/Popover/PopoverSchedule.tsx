@@ -15,7 +15,7 @@ const PopoverSchedule: React.FC<Props> = ({
   onSelectDate,
   initialDate = "",
 }) => {
-  const [value, onChange] = useState<Date | null>(() => {
+  const [dateValue, onChange] = useState<Date | null>(() => {
     if (initialDate === "") return new Date();
     else return new Date(initialDate);
   });
@@ -41,19 +41,19 @@ const PopoverSchedule: React.FC<Props> = ({
       />
       <StyledCalendar
         minDate={new Date()}
-        onChange={onChangeHandler}
-        value={value}
-        activeStartDate={value ?? undefined}
+        value={dateValue}
         prev2Label={null}
         next2Label={null}
+        onChange={onChangeHandler}
       />
     </PopoverBase>
   );
 };
 
 const StyledCalendar = styled(Calendar)`
+  border: none;
   font-size: 0.8rem;
-  width: 300px;
+  width: 225px;
 `;
 
 export default PopoverSchedule;

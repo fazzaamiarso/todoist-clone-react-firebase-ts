@@ -6,11 +6,14 @@ import {
   ModalFooter,
   ModalBody,
   Input,
+  FormControl,
+  FormLabel,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { TodoContext } from "../../store/TodoProvider";
 import { createNewProject } from "../../utils/firestore";
 import ActionButton from "../Shared/ActionButton";
+import SelectColor from "./SelectColor";
 
 interface Props {
   isOpen: boolean;
@@ -20,9 +23,13 @@ interface Props {
 const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const { user } = useContext(TodoContext);
   const [projectInput, setProjectInput] = useState("");
+  const [color, setColor] = useState("gray");
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProjectInput(e.target.value);
+  };
+  const colorChangeHandler = (selectedColor: string) => {
+    setColor(selectedColor);
   };
 
   const addNewProject = async () => {
@@ -31,7 +38,7 @@ const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
     onClose();
     setProjectInput("");
     try {
-      await createNewProject({ name: projectInput, userId: user!.uid });
+      await createNewProject({ name: projectInput, userId: user!.uid, color });
     } catch (error) {
       console.log(error);
     }
@@ -44,16 +51,28 @@ const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
         <ModalHeader>Add Project</ModalHeader>
 
         <ModalBody>
-          <Input
-            placeholder="Project name"
-            value={projectInput}
-            onChange={inputChangeHandler}
-          />
+          <FormControl>
+            <FormLabel>Name</FormLabel>
+            <Input
+              placeholder="Project name"
+              value={projectInput}
+              onChange={inputChangeHandler}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Color</FormLabel>
+            <SelectColor onSelectColor={colorChangeHandler} color={color} />
+          </FormControl>
         </ModalBody>
 
         <ModalFooter>
           <ActionButton btnType="secondary" text="Cancel" onClick={onClose} />
-          <ActionButton btnType="primary" text="Add" onClick={addNewProject} />
+          <ActionButton
+            btnType="primary"
+            text="Add"
+            onClick={addNewProject}
+            isDisabled={projectInput === ""}
+          />
         </ModalFooter>
       </ModalContent>
     </Modal>

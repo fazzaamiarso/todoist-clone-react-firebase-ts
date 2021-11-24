@@ -13,6 +13,7 @@ import { useParams } from "react-router";
 import { TodoContext } from "../../store/TodoProvider";
 import { createNewTask } from "../../utils/firestore";
 import ActionButton from "../Shared/ActionButton";
+import PopoverSchedule from "../Shared/Popover/PopoverSchedule";
 
 interface Props {
   isOpen: boolean;
@@ -23,6 +24,7 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const { projectId } = useParams();
   const { user } = useContext(TodoContext);
   const [taskInput, setTaskInput] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTaskInput(e.target.value);
@@ -30,6 +32,10 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const closeHandler = () => {
     setTaskInput("");
     onClose();
+  };
+
+  const selectDateHandler = (newDate: string) => {
+    setSelectedDate(newDate);
   };
 
   const addNewTask = async () => {
@@ -42,7 +48,7 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
         taskName: taskInput,
         projectId: projectId ?? "",
         userId: user!.uid,
-        due: "",
+        due: selectedDate,
       });
     } catch (error) {
       console.log(error);
@@ -53,7 +59,7 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={closeHandler} isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Task</ModalHeader>
+        <ModalHeader>New Task</ModalHeader>
 
         <ModalBody>
           <Input
@@ -61,6 +67,7 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
             onChange={inputChangeHandler}
             value={taskInput}
           />
+          <PopoverSchedule onSelectDate={selectDateHandler} />
         </ModalBody>
 
         <ModalFooter>

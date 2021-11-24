@@ -12,7 +12,7 @@ import {
 import { useContext, useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
 import { TodoContext } from "../../store/TodoProvider";
-import ProjectModal from "../Shared/ProjectModal";
+import ProjectModal from "../Project/ProjectModal";
 import ProjectItem from "./ProjectItem";
 
 const ProjectAccordion: React.FC = () => {
@@ -49,6 +49,7 @@ const ProjectAccordion: React.FC = () => {
                     key={project.id}
                     id={project.id}
                     projectName={project.name}
+                    projectColor={project.color}
                   />
                 );
               })

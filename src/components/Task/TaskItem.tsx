@@ -5,6 +5,7 @@ import {
   Spacer,
   Text,
   useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
 import { deleteDoc, doc, updateDoc } from "@firebase/firestore";
 import { firestore } from "../../utils/firebase";
@@ -25,6 +26,9 @@ const TaskItem: React.FC<Props> = ({ taskName, completed, id, due }) => {
     onClose: onCloseUpdate,
     onOpen: onOpenUpdate,
   } = useDisclosure();
+
+  const [, month, day] = due.split(" ");
+
   const toggleCompletedHandler = async () => {
     await updateDoc(doc(firestore, "tasks", `${id}`), {
       completed: !completed,
@@ -56,13 +60,17 @@ const TaskItem: React.FC<Props> = ({ taskName, completed, id, due }) => {
             isCompleted={completed}
             onToggleCompleted={toggleCompletedHandler}
           />
-          <Text
-            textDecor={completed ? "line-through" : "none"}
-            color={completed ? "gray.400" : "black"}
-          >
-            {taskName}
-            {due}
-          </Text>
+          <VStack alignItems="flex-start" spacing="0">
+            <Text
+              textDecor={completed ? "line-through" : "none"}
+              color={completed ? "gray.400" : "black"}
+            >
+              {taskName}
+            </Text>
+            {due!! && (
+              <Text color="teal" fontSize="sm">{`${day} ${month}`}</Text>
+            )}
+          </VStack>
           <Spacer />
         </>
       )}
