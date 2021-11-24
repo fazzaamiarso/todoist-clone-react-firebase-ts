@@ -22,7 +22,7 @@ const PopoverBase: React.FC<Props> = ({
   customTriggerText,
 }) => {
   return (
-    <Popover isLazy>
+    <Popover isLazy closeOnBlur>
       <PopoverTrigger>
         {customTriggerIcon!! ? (
           <Button leftIcon={customTriggerIcon}>{customTriggerText}</Button>

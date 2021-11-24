@@ -17,7 +17,7 @@ export interface Task {
   projectId: string | null;
   userId: string;
   completed: boolean;
-  due?: string;
+  due: string;
 }
 
 export const createNewTask = async ({

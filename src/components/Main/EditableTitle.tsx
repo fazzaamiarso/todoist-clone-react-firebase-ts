@@ -7,6 +7,7 @@ import {
   ButtonGroup,
   Button,
 } from "@chakra-ui/react";
+import { BlockquoteHTMLAttributes } from "react";
 
 interface Props {
   initialValue: string;

@@ -1,4 +1,4 @@
-import { HStack } from "@chakra-ui/react";
+import { Heading, HStack } from "@chakra-ui/react";
 import { updateDoc } from "@firebase/firestore";
 import { doc } from "firebase/firestore";
 import { firestore } from "../../utils/firebase";
@@ -18,7 +18,10 @@ const MainHeader: React.FC<Props> = ({ projectName, projectId }) => {
 
   return (
     <HStack as="header">
-      <EditableTitle initialValue={projectName} onChangeTitle={updateTitle} />
+      {projectId !== "" && (
+        <EditableTitle initialValue={projectName} onChangeTitle={updateTitle} />
+      )}
+      {projectId === "" && <Heading fontSize="2xl">{projectName}</Heading>}
     </HStack>
   );
 };

@@ -27,6 +27,10 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTaskInput(e.target.value);
   };
+  const closeHandler = () => {
+    setTaskInput("");
+    onClose();
+  };
 
   const addNewTask = async () => {
     if (taskInput === "") return;
@@ -46,7 +50,7 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+    <Modal isOpen={isOpen} onClose={closeHandler} isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Task</ModalHeader>
@@ -65,7 +69,11 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
             text="Add task"
             onClick={addNewTask}
           />
-          <ActionButton btnType="secondary" text="Cancel" onClick={onClose} />
+          <ActionButton
+            btnType="secondary"
+            text="Cancel"
+            onClick={closeHandler}
+          />
         </ModalFooter>
       </ModalContent>
     </Modal>

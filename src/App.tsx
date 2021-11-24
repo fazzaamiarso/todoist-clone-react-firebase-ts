@@ -6,6 +6,7 @@ import PrivateRoute from "./pages/auth/PrivateRoute";
 import Signup from "./pages/auth/Signup";
 import Inbox from "./pages/Inbox";
 import Project from "./pages/Project";
+import Today from "./pages/Today";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
           }
         >
           <Route path="app/inbox" element={<Inbox></Inbox>} />
-          <Route path="app/today" element={<></>} />
+          <Route path="app/today" element={<Today></Today>} />
           <Route path="app/upcoming" element={<></>} />
           <Route path="projects/:projectId" element={<Project />} />
         </Route>

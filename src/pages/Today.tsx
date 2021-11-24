@@ -3,14 +3,15 @@ import Main from "../components/Main/Main";
 import TaskItem from "../components/Task/TaskItem";
 import { TodoContext } from "../store/TodoProvider";
 
-const Inbox: React.FC = () => {
+const Today: React.FC = () => {
   const { tasks } = useContext(TodoContext);
 
-  const filteredTasks = tasks.filter((task) => task.projectId === "");
+  const isTodayTask = new Date().toDateString();
+  const filteredTasks = tasks.filter((task) => task.due === isTodayTask);
 
   return (
     <>
-      <Main projectName={"Inbox"} projectId="">
+      <Main projectName={"Today"} projectId="">
         {filteredTasks.length === 0
           ? []
           : filteredTasks.map((task) => {
@@ -29,4 +30,4 @@ const Inbox: React.FC = () => {
   );
 };
 
-export default Inbox;
+export default Today;

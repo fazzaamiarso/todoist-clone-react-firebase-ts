@@ -23,6 +23,7 @@ const Project: React.FC = () => {
                   id={task.id}
                   completed={task.completed}
                   taskName={task.taskName}
+                  due={task.due}
                 />
               );
             })}
