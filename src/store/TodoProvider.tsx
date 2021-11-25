@@ -1,31 +1,31 @@
 import React, { createContext, ReactNode, useEffect, useState } from "react";
 import { User, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import {
-  Project,
-  projectsDbRef,
-  Task,
-  taskDbRef,
-  usersDbRef,
-} from "../utils/firestore";
-import { getDoc, onSnapshot, query, where } from "firebase/firestore";
+import { Project, projectsDbRef, Task, taskDbRef } from "../utils/firestore";
+import { onSnapshot, query, where } from "firebase/firestore";
 
 interface TodoInterface {
   user: User | null;
   projects: Project[];
   tasks: Task[];
+  showCompletedTasks: boolean;
+  toggleCompletedTasks: () => void;
 }
 
 export const TodoContext = createContext<TodoInterface>({
   user: null,
   projects: [],
   tasks: [],
+  showCompletedTasks: false,
+  toggleCompletedTasks: () => {},
 });
 
 const TodoProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<TodoInterface["user"]>(null);
   const [allProjects, setAllProjects] = useState<TodoInterface["projects"]>([]);
   const [allTasks, setAllTasks] = useState<TodoInterface["tasks"]>([]);
+  const [showCompletedTasks, setShowCompletedTasks] =
+    useState<TodoInterface["showCompletedTasks"]>(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -64,10 +64,16 @@ const TodoProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     return () => unsubscribe();
   }, [user]);
 
+  const handleToggleCompleted = () => {
+    setShowCompletedTasks(!showCompletedTasks);
+  };
+
   const contextValue = {
     user,
     tasks: allTasks,
     projects: allProjects,
+    showCompletedTasks,
+    toggleCompletedTasks: handleToggleCompleted,
   };
 
   return (

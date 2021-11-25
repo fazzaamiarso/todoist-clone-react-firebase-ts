@@ -5,36 +5,23 @@ import {
   PopoverContent,
   PopoverBody,
   Button,
-  Portal,
   IconButton,
 } from "@chakra-ui/react";
 import { FaEllipsisH } from "react-icons/fa";
 
 interface Props {
   children: ReactNode;
-  customTriggerIcon?: JSX.Element;
-  customTriggerText?: string;
 }
 
-const PopoverBase: React.FC<Props> = ({
-  children,
-  customTriggerIcon,
-  customTriggerText,
-}) => {
+const PopoverBase: React.FC<Props> = ({ children }) => {
   return (
     <Popover isLazy closeOnBlur>
       <PopoverTrigger>
-        {customTriggerIcon!! ? (
-          <Button leftIcon={customTriggerIcon} variant="outline" size="sm">
-            {customTriggerText}
-          </Button>
-        ) : (
-          <IconButton
-            icon={<FaEllipsisH />}
-            aria-label="popover trigger"
-            variant="ghost"
-          />
-        )}
+        <IconButton
+          icon={<FaEllipsisH />}
+          aria-label="popover trigger"
+          variant="ghost"
+        />
       </PopoverTrigger>
       <PopoverContent
         w="max"

@@ -7,7 +7,7 @@ import {
   ButtonGroup,
   Button,
 } from "@chakra-ui/react";
-import { BlockquoteHTMLAttributes } from "react";
+import { BlockquoteHTMLAttributes, useState } from "react";
 
 interface Props {
   initialValue: string;
@@ -31,20 +31,26 @@ const EditableControls: React.FC = () => {
 };
 
 const EditableTitle: React.FC<Props> = ({ initialValue, onChangeTitle }) => {
+  const [value, setValue] = useState(initialValue);
+
   const submitHandler = (currentValue: string) => {
     if (currentValue === initialValue) return;
     onChangeTitle(currentValue);
+  };
+  const changeHandler = (nextValue: string) => {
+    setValue(nextValue);
   };
 
   return (
     <Editable
       isPreviewFocusable={true}
       onSubmit={submitHandler}
+      onChange={changeHandler}
       submitOnBlur={false}
       fontSize="xl"
       fontWeight="bold"
       selectAllOnFocus={false}
-      value={initialValue}
+      value={value}
       mb={4}
     >
       <EditablePreview _hover={{ background: "gray.300" }} />

@@ -6,11 +6,21 @@ import { TodoContext } from "../store/TodoProvider";
 
 const Project: React.FC = () => {
   const { projectId } = useParams();
-  const { projects, tasks } = useContext(TodoContext);
+  const { projects, tasks, showCompletedTasks } = useContext(TodoContext);
 
   const projectName =
     projects.find((project) => project.id === projectId)?.name ?? "";
-  const filteredTasks = tasks.filter((task) => task.projectId === projectId);
+
+  const sortCompletedToBottom = tasks.sort((task1, task2) =>
+    task1.completed ? 1 : -1
+  );
+  const shouldShowCompleted = showCompletedTasks
+    ? sortCompletedToBottom
+    : sortCompletedToBottom.filter((task) => task.completed === false);
+
+  const filteredTasks = shouldShowCompleted.filter(
+    (task) => task.projectId === projectId
+  );
   return (
     <>
       <Main projectName={projectName} projectId={projectId ?? ""}>

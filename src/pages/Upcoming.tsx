@@ -3,20 +3,21 @@ import Main from "../components/Main/Main";
 import TaskItem from "../components/Task/TaskItem";
 import { TodoContext } from "../store/TodoProvider";
 
-const Inbox: React.FC = () => {
+const Upcoming: React.FC = () => {
   const { tasks } = useContext(TodoContext);
 
   const notCompletedTasks = tasks.filter((task) => task.completed === false);
-  const filteredTasks = notCompletedTasks.filter(
-    (task) => task.projectId === ""
-  );
+  const shouldTaskHaveDue = notCompletedTasks.filter((task) => task.due !== "");
+  const taskSortedByDue = shouldTaskHaveDue.sort((task1, task2) => {
+    return new Date(task1.due).getTime() - new Date(task2.due).getTime();
+  });
 
   return (
     <>
-      <Main projectName={"Inbox"} projectId="">
-        {filteredTasks.length === 0
+      <Main projectName={"Upcoming"} projectId="">
+        {taskSortedByDue.length === 0
           ? []
-          : filteredTasks.map((task) => {
+          : taskSortedByDue.map((task) => {
               return (
                 <TaskItem
                   taskName={task.taskName}
@@ -32,4 +33,4 @@ const Inbox: React.FC = () => {
   );
 };
 
-export default Inbox;
+export default Upcoming;

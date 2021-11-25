@@ -1,6 +1,8 @@
 import PopoverBase from "./PopoverBase";
 import PopoverItem from "./PopoverItem";
-import { FaPencilAlt, FaTrash } from "react-icons/fa";
+import { FaCheck, FaPencilAlt, FaTimes, FaTrash } from "react-icons/fa";
+import { useContext } from "react";
+import { TodoContext } from "../../../store/TodoProvider";
 
 interface Props {
   onDeleteProject: () => void;
@@ -8,8 +10,10 @@ interface Props {
 }
 
 const PopoverProject: React.FC<Props> = ({ onDeleteProject, onOpenEditor }) => {
-  const deleteHandler = () => {
-    onDeleteProject();
+  const { showCompletedTasks, toggleCompletedTasks } = useContext(TodoContext);
+
+  const toggleCompletedHandler = () => {
+    toggleCompletedTasks();
   };
 
   return (
@@ -22,7 +26,14 @@ const PopoverProject: React.FC<Props> = ({ onDeleteProject, onOpenEditor }) => {
       <PopoverItem
         icon={<FaTrash />}
         text="Delete project"
-        onClick={deleteHandler}
+        onClick={onDeleteProject}
+      />
+      <PopoverItem
+        icon={showCompletedTasks ? <FaTimes /> : <FaCheck />}
+        text={
+          showCompletedTasks ? "Hide completed tasks" : "Show completed tasks"
+        }
+        onClick={toggleCompletedHandler}
       />
     </PopoverBase>
   );
