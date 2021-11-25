@@ -18,12 +18,28 @@ import SelectColor from "./SelectColor";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  onUpdateProject?: (updatedField: { name: string; color: string }) => void;
+  projectId?: string;
+  isUpdateProject?: boolean;
 }
 
-const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
-  const { user } = useContext(TodoContext);
-  const [projectInput, setProjectInput] = useState("");
-  const [color, setColor] = useState("gray");
+const ProjectModal: React.FC<Props> = ({
+  isOpen,
+  onClose,
+  projectId,
+  isUpdateProject,
+  onUpdateProject,
+}) => {
+  const { user, projects } = useContext(TodoContext);
+  const currentProject = projects.find((project) => project.id === projectId);
+  const isUpdating = isUpdateProject && currentProject!!;
+
+  const [projectInput, setProjectInput] = useState(
+    isUpdating ? currentProject.name : ""
+  );
+  const [color, setColor] = useState(
+    isUpdating ? currentProject.color : "gray"
+  );
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProjectInput(e.target.value);
@@ -42,6 +58,11 @@ const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
     } catch (error) {
       console.log(error);
     }
+  };
+  const updateProject = () => {
+    if (projectInput === "" && color === currentProject?.color) return;
+    onClose();
+    onUpdateProject!({ name: projectInput, color });
   };
 
   return (
@@ -69,8 +90,8 @@ const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
           <ActionButton btnType="secondary" text="Cancel" onClick={onClose} />
           <ActionButton
             btnType="primary"
-            text="Add"
-            onClick={addNewProject}
+            text={isUpdating ? "Save" : "Add"}
+            onClick={isUpdating ? updateProject : addNewProject}
             isDisabled={projectInput === ""}
           />
         </ModalFooter>

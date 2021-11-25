@@ -32,7 +32,7 @@ const PopoverSchedule: React.FC<Props> = ({
   return (
     <PopoverBase
       customTriggerIcon={<FaCalendar />}
-      customTriggerText="Schedule"
+      customTriggerText={"Schedule"}
     >
       <PopoverItem
         text="No Date"

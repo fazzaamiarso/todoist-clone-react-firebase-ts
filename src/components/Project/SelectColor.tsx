@@ -21,7 +21,6 @@ import React, { useState } from "react";
 
 const colors = [
   "red",
-  "teal",
   "violet",
   "teal",
   "blue",
@@ -51,10 +50,10 @@ const SelectColor: React.FC<Props> = ({
   };
 
   return (
-    <Select onChange={changeHandler}>
+    <Select onChange={changeHandler} value={selectedColor}>
       {colors.map((color) => {
         return (
-          <option value={color} selected={color === selectedColor}>
+          <option key={color} value={color}>
             {color}
           </option>
         );

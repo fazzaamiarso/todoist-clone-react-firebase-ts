@@ -37,12 +37,12 @@ const EditableTitle: React.FC<Props> = ({ initialValue, onChangeTitle }) => {
   return (
     <Editable
       isPreviewFocusable={true}
-      defaultValue={initialValue}
       onSubmit={submitHandler}
       submitOnBlur={false}
       fontSize="2xl"
       fontWeight="bold"
       selectAllOnFocus={false}
+      value={initialValue}
     >
       <EditablePreview _hover={{ background: "gray.300" }} px={2} />
       <EditableInput mb={4} />
