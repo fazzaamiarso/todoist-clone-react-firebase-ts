@@ -20,10 +20,12 @@ const EditableControls: React.FC = () => {
 
   return isEditing ? (
     <ButtonGroup>
-      <Button {...getSubmitButtonProps()} color="white" bg="red.400">
+      <Button {...getSubmitButtonProps()} color="white" bg="red.400" size="sm">
         Save
       </Button>
-      <Button {...getCancelButtonProps()}>Cancel </Button>
+      <Button {...getCancelButtonProps()} variant="ghost" size="sm">
+        Cancel{" "}
+      </Button>
     </ButtonGroup>
   ) : null;
 };
@@ -39,13 +41,14 @@ const EditableTitle: React.FC<Props> = ({ initialValue, onChangeTitle }) => {
       isPreviewFocusable={true}
       onSubmit={submitHandler}
       submitOnBlur={false}
-      fontSize="2xl"
+      fontSize="xl"
       fontWeight="bold"
       selectAllOnFocus={false}
       value={initialValue}
+      mb={4}
     >
-      <EditablePreview _hover={{ background: "gray.300" }} px={2} />
-      <EditableInput mb={4} />
+      <EditablePreview _hover={{ background: "gray.300" }} />
+      <EditableInput mb={2} />
       <EditableControls />
     </Editable>
   );

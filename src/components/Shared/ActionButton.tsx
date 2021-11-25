@@ -19,7 +19,13 @@ const ActionButton: React.FC<Props> = ({
   };
 
   return (
-    <Button {...styles} onClick={onClick} isDisabled={isDisabled}>
+    <Button
+      {...styles}
+      onClick={onClick}
+      isDisabled={isDisabled}
+      variant={btnType === "secondary" ? "outline" : "solid"}
+      size="sm"
+    >
       {text}
     </Button>
   );

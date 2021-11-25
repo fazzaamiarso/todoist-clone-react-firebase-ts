@@ -7,6 +7,7 @@ import {
   ModalBody,
   ModalCloseButton,
   Input,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router";
@@ -66,21 +67,25 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
             placeholder="Task name"
             onChange={inputChangeHandler}
             value={taskInput}
+            mb={4}
           />
           <PopoverSchedule onSelectDate={selectDateHandler} />
         </ModalBody>
 
         <ModalFooter>
-          <ActionButton
-            btnType="primary"
-            text="Add task"
-            onClick={addNewTask}
-          />
-          <ActionButton
-            btnType="secondary"
-            text="Cancel"
-            onClick={closeHandler}
-          />
+          <ButtonGroup spacing={4}>
+            <ActionButton
+              btnType="primary"
+              text="Add task"
+              onClick={addNewTask}
+              isDisabled={taskInput === ""}
+            />
+            <ActionButton
+              btnType="secondary"
+              text="Cancel"
+              onClick={closeHandler}
+            />
+          </ButtonGroup>
         </ModalFooter>
       </ModalContent>
     </Modal>

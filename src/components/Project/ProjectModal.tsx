@@ -8,6 +8,7 @@ import {
   Input,
   FormControl,
   FormLabel,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { TodoContext } from "../../store/TodoProvider";
@@ -51,12 +52,13 @@ const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
         <ModalHeader>{"Add project"}</ModalHeader>
 
         <ModalBody>
-          <FormControl>
+          <FormControl mb={4}>
             <FormLabel>Name</FormLabel>
             <Input
               placeholder="Project name"
               value={projectInput}
               onChange={inputChangeHandler}
+              size="sm"
             />
           </FormControl>
           <FormControl>
@@ -66,13 +68,15 @@ const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
         </ModalBody>
 
         <ModalFooter>
-          <ActionButton btnType="secondary" text="Cancel" onClick={onClose} />
-          <ActionButton
-            btnType="primary"
-            text="Add"
-            onClick={addNewProject}
-            isDisabled={projectInput === ""}
-          />
+          <ButtonGroup spacing={4} mt={4}>
+            <ActionButton btnType="secondary" text="Cancel" onClick={onClose} />
+            <ActionButton
+              btnType="primary"
+              text="Add"
+              onClick={addNewProject}
+              isDisabled={projectInput === ""}
+            />
+          </ButtonGroup>
         </ModalFooter>
       </ModalContent>
     </Modal>

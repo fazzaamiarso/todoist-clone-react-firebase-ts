@@ -26,7 +26,7 @@ const ProjectAccordion: React.FC = () => {
         <AccordionItem>
           <h2>
             <AccordionButton as="div">
-              <AccordionIcon />
+              <AccordionIcon mr="2" />
               <Box flex="1" textAlign="left">
                 Projects
               </Box>
@@ -41,7 +41,7 @@ const ProjectAccordion: React.FC = () => {
           </h2>
           <AccordionPanel pb={4} as="ul">
             {projects.length === 0 ? (
-              <Text>There is no projects to show</Text>
+              <Text size={"sm"}>You have no project</Text>
             ) : (
               projects.map((project) => {
                 return (

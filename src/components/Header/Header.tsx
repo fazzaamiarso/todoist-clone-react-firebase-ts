@@ -28,7 +28,7 @@ const Header: React.FC<Props> = ({ onToggle }) => {
         alignItems="center"
         bg="red.400"
         py={2}
-        px={10}
+        px={"2%"}
         position="absolute"
         zIndex="100"
         width="100%"
@@ -49,7 +49,7 @@ const Header: React.FC<Props> = ({ onToggle }) => {
           />
         </ButtonGroup>
         <Spacer />
-        <HStack>
+        <HStack spacing="4">
           <IconButton
             aria-label="plus"
             icon={<FaPlus />}
@@ -57,7 +57,9 @@ const Header: React.FC<Props> = ({ onToggle }) => {
             color="white"
             onClick={onOpen}
           />
-          <Button onClick={signOutHandler}>Logout</Button>
+          <Button onClick={signOutHandler} size="sm">
+            Logout
+          </Button>
           <Avatar
             name={(user && user.email) ?? ""}
             src="no-link"

@@ -25,7 +25,9 @@ const PopoverBase: React.FC<Props> = ({
     <Popover isLazy closeOnBlur>
       <PopoverTrigger>
         {customTriggerIcon!! ? (
-          <Button leftIcon={customTriggerIcon}>{customTriggerText}</Button>
+          <Button leftIcon={customTriggerIcon} variant="outline" size="sm">
+            {customTriggerText}
+          </Button>
         ) : (
           <IconButton
             icon={<FaEllipsisH />}

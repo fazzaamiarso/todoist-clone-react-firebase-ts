@@ -38,7 +38,11 @@ const MainHeader: React.FC<Props> = ({ projectName, projectId }) => {
       {projectId !== "" && (
         <EditableTitle initialValue={projectName} onChangeTitle={updateTitle} />
       )}
-      {projectId === "" && <Heading fontSize="2xl">{projectName}</Heading>}
+      {projectId === "" && (
+        <Heading fontSize="xl" mb={4}>
+          {projectName}
+        </Heading>
+      )}
       <Spacer />
       {projectId !== "" && (
         <PopoverProject onDeleteProject={deleteProject} onOpenEditor={onOpen} />

@@ -50,7 +50,12 @@ const SelectColor: React.FC<Props> = ({
   };
 
   return (
-    <Select onChange={changeHandler} value={selectedColor}>
+    <Select
+      onChange={changeHandler}
+      value={selectedColor}
+      size="sm"
+      textTransform="capitalize"
+    >
       {colors.map((color) => {
         return (
           <option key={color} value={color}>

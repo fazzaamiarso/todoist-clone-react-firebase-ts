@@ -12,7 +12,7 @@ interface Props {
 
 const Main: React.FC<Props> = ({ children, projectName, projectId }) => {
   return (
-    <Container maxW="3xl" w="full" mt="3rem">
+    <Container maxW="3xl" w="85%" mt="5.5rem">
       <MainHeader projectName={projectName} projectId={projectId} />
       <VStack as="ul" alignItems="flex-start">
         {children}

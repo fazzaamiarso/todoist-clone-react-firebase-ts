@@ -53,7 +53,7 @@ const TaskItem: React.FC<Props> = ({ taskName, completed, id, due }) => {
   };
 
   return (
-    <HStack as="li" w="full">
+    <HStack as="li" w="full" borderBottom="1px" borderColor="gray.200" py={1}>
       {!isUpdating && (
         <>
           <TaskCheckbox
@@ -68,7 +68,7 @@ const TaskItem: React.FC<Props> = ({ taskName, completed, id, due }) => {
               {taskName}
             </Text>
             {due!! && (
-              <Text color="teal" fontSize="sm">{`${day} ${month}`}</Text>
+              <Text color="teal" fontSize="xs">{`${day} ${month}`}</Text>
             )}
           </VStack>
           <Spacer />

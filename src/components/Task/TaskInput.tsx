@@ -1,4 +1,10 @@
-import { ButtonGroup, FormControl, Input } from "@chakra-ui/react";
+import {
+  ButtonGroup,
+  FormControl,
+  Input,
+  Spacer,
+  VStack,
+} from "@chakra-ui/react";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { TodoContext } from "../../store/TodoProvider";
@@ -45,7 +51,7 @@ const TaskInput: React.FC<Props> = ({ onCloseEditor }) => {
   };
 
   return (
-    <FormControl>
+    <FormControl mt={2}>
       <Input
         placeholder="Task name"
         value={taskInput}
@@ -53,8 +59,7 @@ const TaskInput: React.FC<Props> = ({ onCloseEditor }) => {
         ref={inputRef}
       />
       <PopoverSchedule onSelectDate={setDateHandler} />
-
-      <ButtonGroup mt={2}>
+      <ButtonGroup mt={2} ml={4} spacing={2}>
         <ActionButton
           btnType="primary"
           text="Add task"

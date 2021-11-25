@@ -56,7 +56,7 @@ const TaskEdit: React.FC<Props> = ({
       />
       <PopoverSchedule onSelectDate={setDateHandler} initialDate={due} />
 
-      <ButtonGroup mt={2}>
+      <ButtonGroup mt={2} ml={4}>
         <ActionButton
           btnType="primary"
           text="Save"
