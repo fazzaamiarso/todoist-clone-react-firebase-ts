@@ -1,12 +1,4 @@
-import {
-  Box,
-  HStack,
-  Icon,
-  Spacer,
-  Text,
-  useDisclosure,
-  VStack,
-} from "@chakra-ui/react";
+import { HStack, Spacer, Text, useDisclosure, VStack } from "@chakra-ui/react";
 import { deleteDoc, doc, updateDoc } from "@firebase/firestore";
 import { firestore } from "../../utils/firebase";
 import PopoverTask from "../Shared/Popover/PopoverTask";
@@ -82,7 +74,6 @@ const TaskItem: React.FC<Props> = ({ taskName, completed, id, due }) => {
       )}
       {isUpdating && (
         <TaskEdit
-          id={id}
           taskName={taskName}
           due={due}
           onCloseEditor={onCloseUpdate}

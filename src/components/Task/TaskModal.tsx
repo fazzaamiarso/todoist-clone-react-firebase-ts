@@ -5,7 +5,6 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton,
   Input,
   ButtonGroup,
 } from "@chakra-ui/react";
@@ -14,6 +13,7 @@ import { useParams } from "react-router";
 import { TodoContext } from "../../store/TodoProvider";
 import { createNewTask } from "../../utils/firestore";
 import ActionButton from "../Shared/ActionButton";
+import PopoverMoveProject from "../Shared/Popover/PopoverMoveProject";
 import PopoverSchedule from "../Shared/Popover/PopoverSchedule";
 
 interface Props {
@@ -26,6 +26,7 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const { user } = useContext(TodoContext);
   const [taskInput, setTaskInput] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
+  const [selectedProject, setSelectedProject] = useState(projectId ?? "");
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTaskInput(e.target.value);
@@ -38,6 +39,9 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const selectDateHandler = (newDate: string) => {
     setSelectedDate(newDate);
   };
+  const selectProjectHandler = (id: string) => {
+    setSelectedProject(id);
+  };
 
   const addNewTask = async () => {
     if (taskInput === "") return;
@@ -47,7 +51,7 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
     try {
       await createNewTask({
         taskName: taskInput,
-        projectId: projectId ?? "",
+        projectId: selectedProject,
         userId: user!.uid,
         due: selectedDate,
       });
@@ -69,7 +73,13 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
             value={taskInput}
             mb={4}
           />
-          <PopoverSchedule onSelectDate={selectDateHandler} />
+          <ButtonGroup spacing={2}>
+            <PopoverSchedule onSelectDate={selectDateHandler} />
+            <PopoverMoveProject
+              projectId={projectId ?? ""}
+              onSelectProject={selectProjectHandler}
+            />
+          </ButtonGroup>
         </ModalBody>
 
         <ModalFooter>

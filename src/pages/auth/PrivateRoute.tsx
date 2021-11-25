@@ -1,5 +1,5 @@
-import { ReactElement, ReactNode, useContext } from "react";
-import { Route, Navigate } from "react-router-dom";
+import { ReactNode, useContext } from "react";
+import { Navigate } from "react-router-dom";
 import { TodoContext } from "../../store/TodoProvider";
 
 interface RouteProps {

@@ -21,9 +21,9 @@ function App() {
             </PrivateRoute>
           }
         >
-          <Route path="app/inbox" element={<Inbox></Inbox>} />
-          <Route path="app/today" element={<Today></Today>} />
-          <Route path="app/upcoming" element={<Upcoming></Upcoming>} />
+          <Route path="app/inbox" element={<Inbox />} />
+          <Route path="app/today" element={<Today />} />
+          <Route path="app/upcoming" element={<Upcoming />} />
           <Route path="projects/:projectId" element={<Project />} />
         </Route>
         <Route path="/login" element={<Login />} />

@@ -30,7 +30,7 @@ const Signup: React.FC = () => {
         name: newUser.user.displayName,
         id: newUser.user.uid,
       });
-      navigate("/", { replace: true });
+      navigate("/app/inbox", { replace: true });
     } catch (err) {
       alert(err);
     }

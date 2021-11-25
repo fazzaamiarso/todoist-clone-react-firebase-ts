@@ -26,7 +26,7 @@ const ProjectItem: React.FC<Props> = ({ id, projectName, projectColor }) => {
         justifyContent="flex-start"
       >
         <Box w="10px" h="10px" bg={projectColor} borderRadius="50%" mr={4} />
-        <Text isTruncated maxW="15ch">
+        <Text isTruncated maxW="15ch" fontSize="sm">
           {projectName}
         </Text>
         <Box as="span" ml="auto" color="gray.400" fontSize="sm">

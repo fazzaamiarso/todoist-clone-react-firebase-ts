@@ -12,7 +12,6 @@ import {
   PopoverContent,
   PopoverBody,
   useDisclosure,
-  Portal,
 } from "@chakra-ui/react";
 
 interface Props {
@@ -25,7 +24,7 @@ const PopoverSchedule: React.FC<Props> = ({
   initialDate = "",
 }) => {
   const [dateValue, onChange] = useState<Date | null>(() => {
-    if (initialDate === "") return new Date();
+    if (initialDate === "") return null;
     else return new Date(initialDate);
   });
   const {
@@ -91,24 +90,6 @@ const PopoverSchedule: React.FC<Props> = ({
       </PopoverContent>
     </Popover>
   );
-
-  //   <PopoverBase
-  //     customTriggerIcon={<FaCalendar />}
-  //     customTriggerText={"Schedule"}
-  //   >
-  //     <PopoverItem
-  //       text="No Date"
-  //       onClick={noDateHandler}
-  //       icon={<FaMinusCircle />}
-  //     />
-  //     <StyledCalendar
-  //       minDate={new Date()}
-  //       value={dateValue}
-  //       prev2Label={null}
-  //       next2Label={null}
-  //       onChange={onChangeHandler}
-  //     />
-  //   </PopoverBase>
 };
 
 const StyledCalendar = styled(Calendar)`

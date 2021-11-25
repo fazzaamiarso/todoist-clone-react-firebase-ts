@@ -16,7 +16,7 @@ const Project: React.FC = () => {
   );
   const shouldShowCompleted = showCompletedTasks
     ? sortCompletedToBottom
-    : sortCompletedToBottom.filter((task) => task.completed === false);
+    : tasks.filter((task) => task.completed === false);
 
   const filteredTasks = shouldShowCompleted.filter(
     (task) => task.projectId === projectId

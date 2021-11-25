@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { NavLink } from "react-router-dom";
 import ProjectAccordion from "./ProjectAccordion";
 import { Button } from "@chakra-ui/button";
+import { FaCalendarAlt, FaCalendarDay, FaInbox } from "react-icons/fa";
 
 interface Props {
   isOpen: boolean;
@@ -13,8 +14,10 @@ const Sidebar: React.FC<Props> = ({ isOpen }) => {
     <>
       {isOpen && <MobileOverlay />}
       <Container isOpen={isOpen}>
-        <VStack>
+        <VStack pl={4}>
           <Button
+            leftIcon={<FaInbox />}
+            fontSize="sm"
             as={NavLink}
             to="/app/inbox"
             variant="ghost"
@@ -24,6 +27,8 @@ const Sidebar: React.FC<Props> = ({ isOpen }) => {
             Inbox
           </Button>
           <Button
+            leftIcon={<FaCalendarDay />}
+            fontSize="sm"
             as={NavLink}
             to="/app/today"
             variant="ghost"
@@ -33,6 +38,8 @@ const Sidebar: React.FC<Props> = ({ isOpen }) => {
             Today
           </Button>
           <Button
+            leftIcon={<FaCalendarAlt />}
+            fontSize="sm"
             as={NavLink}
             to="/app/upcoming"
             variant="ghost"

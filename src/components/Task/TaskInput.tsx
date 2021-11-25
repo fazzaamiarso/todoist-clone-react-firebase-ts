@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { TodoContext } from "../../store/TodoProvider";
 import { createNewTask } from "../../utils/firestore";
 import ActionButton from "../Shared/ActionButton";
+import PopoverMoveProject from "../Shared/Popover/PopoverMoveProject";
 import PopoverSchedule from "../Shared/Popover/PopoverSchedule";
 
 interface Props {
@@ -22,6 +23,7 @@ const TaskInput: React.FC<Props> = ({ onCloseEditor }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [taskInput, setTaskInput] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
+  const [selectedProject, setSelectedProject] = useState(projectId ?? "");
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -34,20 +36,23 @@ const TaskInput: React.FC<Props> = ({ onCloseEditor }) => {
   const setDateHandler = (dateSelected: string) => {
     setSelectedDate(dateSelected);
   };
+  const selectProjectHandler = (id: string) => {
+    setSelectedProject(id);
+  };
 
   const AddTaskHandler = async () => {
     if (taskInput === "") return;
-    setTaskInput("");
     try {
       await createNewTask({
         taskName: taskInput,
-        projectId: projectId ?? "",
+        projectId: selectedProject,
         userId: user!.uid,
         due: selectedDate,
       });
     } catch (error) {
       console.log(error);
     }
+    setTaskInput("");
   };
 
   return (
@@ -58,7 +63,13 @@ const TaskInput: React.FC<Props> = ({ onCloseEditor }) => {
         onChange={changeHandler}
         ref={inputRef}
       />
-      <PopoverSchedule onSelectDate={setDateHandler} />
+      <ButtonGroup spacing={2}>
+        <PopoverSchedule onSelectDate={setDateHandler} />
+        <PopoverMoveProject
+          projectId={selectedProject ?? ""}
+          onSelectProject={selectProjectHandler}
+        />
+      </ButtonGroup>
       <ButtonGroup mt={2} ml={4} spacing={2}>
         <ActionButton
           btnType="primary"

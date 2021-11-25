@@ -22,7 +22,7 @@ const Header: React.FC<Props> = ({ onToggle }) => {
 
   return (
     <>
-      <TaskModal isOpen={isOpen} onClose={onClose} />
+      {isOpen && <TaskModal isOpen={isOpen} onClose={onClose} />}
       <Flex
         as="header"
         alignItems="center"

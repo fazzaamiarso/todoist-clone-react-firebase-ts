@@ -22,8 +22,8 @@ const MainHeader: React.FC<Props> = ({ projectName, projectId }) => {
     });
   };
   const deleteProject = async () => {
-    await deleteDoc(doc(firestore, "projects", `${projectId}`));
     navigate("/app/inbox");
+    await deleteDoc(doc(firestore, "projects", `${projectId}`));
   };
   const updateProject = async (updatedField: {
     name: string;

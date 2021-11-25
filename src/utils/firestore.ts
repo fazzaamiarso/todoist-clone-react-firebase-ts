@@ -32,6 +32,7 @@ export const createNewTask = async ({
     projectId,
     userId,
     due,
+    completed: false,
     timestamp: serverTimestamp(),
   });
 };

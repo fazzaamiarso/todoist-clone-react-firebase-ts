@@ -22,12 +22,12 @@ const ProjectAccordion: React.FC = () => {
   return (
     <>
       <ProjectModal isOpen={isOpen} onClose={onClose} />
-      <Accordion allowToggle w="full">
+      <Accordion allowToggle w="full" mt={4}>
         <AccordionItem>
           <h2>
             <AccordionButton as="div">
               <AccordionIcon mr="2" />
-              <Box flex="1" textAlign="left">
+              <Box flex="1" textAlign="left" fontWeight="bold">
                 Projects
               </Box>
               <IconButton
