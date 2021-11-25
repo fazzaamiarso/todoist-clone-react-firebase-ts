@@ -10,20 +10,30 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
+import { useParams } from "react-router";
 import { TodoContext } from "../../store/TodoProvider";
-import { createNewProject } from "../../utils/firestore";
 import ActionButton from "../Shared/ActionButton";
 import SelectColor from "./SelectColor";
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  onUpdateProject: (updatedField: { name: string; color: string }) => void;
+  projectId: string;
+  projectName: string;
 }
 
-const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
-  const { user } = useContext(TodoContext);
-  const [projectInput, setProjectInput] = useState("");
-  const [color, setColor] = useState("gray");
+const ProjectEdit: React.FC<Props> = ({
+  isOpen,
+  onClose,
+  onUpdateProject,
+  projectId,
+}) => {
+  const { projects } = useContext(TodoContext);
+  const currentProject = projects.find((project) => project.id === projectId)!;
+
+  const [projectInput, setProjectInput] = useState(currentProject.name);
+  const [color, setColor] = useState(currentProject.color);
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProjectInput(e.target.value);
@@ -32,23 +42,21 @@ const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
     setColor(selectedColor);
   };
 
-  const addNewProject = async () => {
-    if (projectInput === "") return;
-
+  const updateProject = () => {
+    if (
+      projectInput === currentProject?.name &&
+      color === currentProject?.color
+    )
+      return;
     onClose();
-    setProjectInput("");
-    try {
-      await createNewProject({ name: projectInput, userId: user!.uid, color });
-    } catch (error) {
-      console.log(error);
-    }
+    onUpdateProject!({ name: projectInput, color });
   };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{"Add project"}</ModalHeader>
+        <ModalHeader>Edit project</ModalHeader>
 
         <ModalBody>
           <FormControl>
@@ -69,8 +77,8 @@ const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
           <ActionButton btnType="secondary" text="Cancel" onClick={onClose} />
           <ActionButton
             btnType="primary"
-            text="Add"
-            onClick={addNewProject}
+            text="Save"
+            onClick={updateProject}
             isDisabled={projectInput === ""}
           />
         </ModalFooter>
@@ -79,4 +87,4 @@ const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
   );
 };
 
-export default ProjectModal;
+export default ProjectEdit;

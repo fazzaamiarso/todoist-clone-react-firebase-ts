@@ -3,7 +3,7 @@ import { updateDoc } from "@firebase/firestore";
 import { deleteDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router";
 import { firestore } from "../../utils/firebase";
-import ProjectModal from "../Project/ProjectModal";
+import ProjectEdit from "../Project/ProjectEdit";
 import PopoverProject from "../Shared/Popover/PopoverProject";
 import EditableTitle from "./EditableTitle";
 
@@ -43,13 +43,15 @@ const MainHeader: React.FC<Props> = ({ projectName, projectId }) => {
       {projectId !== "" && (
         <PopoverProject onDeleteProject={deleteProject} onOpenEditor={onOpen} />
       )}
-      <ProjectModal
-        isUpdateProject
-        onClose={onClose}
-        isOpen={isUpdating}
-        projectId={projectId}
-        onUpdateProject={updateProject}
-      />
+      {projectId !== "" && isUpdating && (
+        <ProjectEdit
+          isOpen={isUpdating}
+          projectId={projectId}
+          onClose={onClose}
+          onUpdateProject={updateProject}
+          projectName={projectName}
+        />
+      )}
     </HStack>
   );
 };
