@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import Main from "../components/Main/Main";
 import TaskItem from "../components/Task/TaskItem";
 import { TodoContext } from "../store/TodoProvider";
+import PageHelmet from "./PageHelmet";
 
 const Project: React.FC = () => {
   const { projectId } = useParams();
@@ -11,7 +12,7 @@ const Project: React.FC = () => {
   const projectName =
     projects.find((project) => project.id === projectId)?.name ?? "";
 
-  const sortCompletedToBottom = tasks.sort((task1, task2) =>
+  const sortCompletedToBottom = tasks.sort((task1) =>
     task1.completed ? 1 : -1
   );
   const shouldShowCompleted = showCompletedTasks
@@ -23,6 +24,7 @@ const Project: React.FC = () => {
   );
   return (
     <>
+      <PageHelmet title={`${projectName}: Todoist Clone`} />
       <Main projectName={projectName} projectId={projectId ?? ""}>
         {filteredTasks.length === 0
           ? []

@@ -7,7 +7,11 @@ import PopoverSchedule from "../Shared/Popover/PopoverSchedule";
 
 interface Props {
   onCloseEditor: () => void;
-  onUpdateTask: (updatedField: { taskName: string; due: string }) => void;
+  onUpdateTask: (updatedField: {
+    taskName: string;
+    due: string;
+    projectId: string;
+  }) => void;
   taskName: string;
   due: string;
 }

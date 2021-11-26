@@ -2,6 +2,7 @@ import { useContext } from "react";
 import Main from "../components/Main/Main";
 import TaskItem from "../components/Task/TaskItem";
 import { TodoContext } from "../store/TodoProvider";
+import PageHelmet from "./PageHelmet";
 
 const Today: React.FC = () => {
   const { tasks } = useContext(TodoContext);
@@ -11,6 +12,7 @@ const Today: React.FC = () => {
 
   return (
     <>
+      <PageHelmet title="Today: Todoist Clone" />
       <Main projectName={"Today"} projectId="">
         {filteredTasks.length === 0
           ? []

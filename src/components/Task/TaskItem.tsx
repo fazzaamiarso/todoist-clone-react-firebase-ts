@@ -4,6 +4,7 @@ import {
   Text,
   useBoolean,
   useDisclosure,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import { deleteDoc, doc, updateDoc } from "@firebase/firestore";
@@ -11,7 +12,6 @@ import { firestore } from "../../utils/firebase";
 import PopoverTask from "../Shared/Popover/PopoverTask";
 import TaskCheckbox from "./TaskCheckbox";
 import TaskEdit from "./TaskEdit";
-import styled from "@emotion/styled";
 
 interface Props {
   taskName: string;
@@ -21,6 +21,7 @@ interface Props {
 }
 
 const TaskItem: React.FC<Props> = ({ taskName, completed, id, due }) => {
+  const toast = useToast();
   const {
     isOpen: isUpdating,
     onClose: onCloseUpdate,
@@ -42,10 +43,17 @@ const TaskItem: React.FC<Props> = ({ taskName, completed, id, due }) => {
   const updateTaskHandler = async (updatedField: {
     taskName: string;
     due: string;
+    projectId: string;
   }) => {
     try {
       await updateDoc(doc(firestore, "tasks", `${id}`), {
         ...updatedField,
+      });
+      toast({
+        description: `Project change successful!`,
+        status: "success",
+        duration: 5000,
+        isClosable: true,
       });
     } catch (error) {
       console.log(error);
@@ -68,7 +76,14 @@ const TaskItem: React.FC<Props> = ({ taskName, completed, id, due }) => {
               {taskName}
             </Text>
             {due!! && (
-              <Text color="teal" fontSize="xs">{`${day} ${month}`}</Text>
+              <Text color="teal" fontSize="xs">
+                {due === new Date().toDateString()
+                  ? "Today"
+                  : due ===
+                    new Date(Date.now() + 1000 * 60 * 60 * 24).toDateString()
+                  ? "Tomorrow"
+                  : due.split(" ").slice(1, 3).join(" ")}
+              </Text>
             )}
           </VStack>
           <Spacer />
