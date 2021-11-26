@@ -33,11 +33,13 @@ const PopoverSchedule: React.FC<Props> = ({
     onToggle: onToggleCalendar,
   } = useDisclosure();
 
-  const displayedDate = dateValue
-    ?.toDateString()
-    .split(" ")
-    .slice(1, 3)
-    .join(" ");
+  const displayedDate =
+    dateValue?.toDateString() === new Date().toDateString()
+      ? "Today"
+      : dateValue?.toDateString() ===
+        new Date(Date.now() + 1000 * 60 * 60 * 24).toDateString()
+      ? "Tomorrow"
+      : dateValue?.toDateString().split(" ").slice(1, 3).join(" ");
 
   const onChangeHandler = (newDate: Date) => {
     onCloseCalendar();

@@ -8,6 +8,7 @@ import {
   PopoverContent,
   PopoverBody,
   useDisclosure,
+  Box,
 } from "@chakra-ui/react";
 import { TodoContext } from "../../../store/TodoProvider";
 
@@ -80,6 +81,14 @@ const PopoverMoveProject: React.FC<Props> = ({
                 size="sm"
                 justifyContent="flex-start"
               >
+                <Box
+                  as="span"
+                  w="7px"
+                  h="7px"
+                  bg={project.color}
+                  borderRadius="50%"
+                  mr={2}
+                />
                 {project.name}
               </Button>
             );

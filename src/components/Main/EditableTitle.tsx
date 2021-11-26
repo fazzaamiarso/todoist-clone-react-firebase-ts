@@ -7,7 +7,8 @@ import {
   ButtonGroup,
   Button,
 } from "@chakra-ui/react";
-import { BlockquoteHTMLAttributes, useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 interface Props {
   initialValue: string;
@@ -31,7 +32,12 @@ const EditableControls: React.FC = () => {
 };
 
 const EditableTitle: React.FC<Props> = ({ initialValue, onChangeTitle }) => {
+  let location = useLocation();
   const [value, setValue] = useState(initialValue);
+
+  useEffect(() => {
+    setValue(initialValue);
+  }, [location]);
 
   const submitHandler = (currentValue: string) => {
     if (currentValue === initialValue) return;

@@ -1,17 +1,19 @@
 import { Button } from "@chakra-ui/button";
+import React from "react";
 
-interface Props {
+type ButtonProps = React.ComponentPropsWithoutRef<"button">;
+
+interface Props extends ButtonProps {
   btnType: "primary" | "secondary";
   text: string;
   isDisabled?: boolean;
-  onClick?: () => void;
 }
 
 const ActionButton: React.FC<Props> = ({
   btnType,
   text,
-  onClick,
   isDisabled,
+  onClick,
 }) => {
   const styles = {
     bg: btnType === "primary" ? "red.400" : "gray.100",

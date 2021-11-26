@@ -35,17 +35,21 @@ const MainHeader: React.FC<Props> = ({ projectName, projectId }) => {
 
   return (
     <HStack as="header">
-      {projectId !== "" && (
-        <EditableTitle initialValue={projectName} onChangeTitle={updateTitle} />
-      )}
-      {projectId === "" && (
+      {projectId === "" ? (
         <Heading fontSize="xl" mb={4}>
           {projectName}
         </Heading>
+      ) : (
+        <EditableTitle initialValue={projectName} onChangeTitle={updateTitle} />
       )}
+
       <Spacer />
       {projectId !== "" && (
-        <PopoverProject onDeleteProject={deleteProject} onOpenEditor={onOpen} />
+        <PopoverProject
+          onDeleteProject={deleteProject}
+          onOpenEditor={onOpen}
+          projectName={projectName}
+        />
       )}
       {projectId !== "" && isUpdating && (
         <ProjectEdit

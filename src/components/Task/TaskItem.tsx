@@ -1,9 +1,17 @@
-import { HStack, Spacer, Text, useDisclosure, VStack } from "@chakra-ui/react";
+import {
+  HStack,
+  Spacer,
+  Text,
+  useBoolean,
+  useDisclosure,
+  VStack,
+} from "@chakra-ui/react";
 import { deleteDoc, doc, updateDoc } from "@firebase/firestore";
 import { firestore } from "../../utils/firebase";
 import PopoverTask from "../Shared/Popover/PopoverTask";
 import TaskCheckbox from "./TaskCheckbox";
 import TaskEdit from "./TaskEdit";
+import styled from "@emotion/styled";
 
 interface Props {
   taskName: string;
@@ -45,14 +53,14 @@ const TaskItem: React.FC<Props> = ({ taskName, completed, id, due }) => {
   };
 
   return (
-    <HStack as="li" w="full" borderBottom="1px" borderColor="gray.200" py={1}>
+    <HStack as="li" w="full" borderBottom="1px" borderColor="gray.200">
       {!isUpdating && (
         <>
           <TaskCheckbox
             isCompleted={completed}
             onToggleCompleted={toggleCompletedHandler}
           />
-          <VStack alignItems="flex-start" spacing="0">
+          <VStack alignItems="flex-start" spacing="0" py={4}>
             <Text
               textDecor={completed ? "line-through" : "none"}
               color={completed ? "gray.400" : "black"}
@@ -70,6 +78,7 @@ const TaskItem: React.FC<Props> = ({ taskName, completed, id, due }) => {
         <PopoverTask
           onDeleteTask={deleteTaskHandler}
           onOpenEditor={onOpenUpdate}
+          taskName={taskName}
         />
       )}
       {isUpdating && (
