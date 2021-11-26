@@ -34,8 +34,6 @@ const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
   };
 
   const addNewProject = async () => {
-    if (projectInput === "") return;
-
     onClose();
     setProjectInput("");
     try {

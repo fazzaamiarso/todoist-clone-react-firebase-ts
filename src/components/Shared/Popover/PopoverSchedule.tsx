@@ -1,5 +1,4 @@
-import { FaCalendar, FaEllipsisH, FaMinusCircle, FaStop } from "react-icons/fa";
-import PopoverBase from "./PopoverBase";
+import { FaCalendar, FaMinusCircle } from "react-icons/fa";
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -13,6 +12,7 @@ import {
   PopoverBody,
   useDisclosure,
 } from "@chakra-ui/react";
+import { getDisplayedDate } from "../../../utils/DateConverter";
 
 interface Props {
   onSelectDate: (newDate: string) => void;
@@ -23,7 +23,7 @@ const PopoverSchedule: React.FC<Props> = ({
   onSelectDate,
   initialDate = "",
 }) => {
-  const [dateValue, onChange] = useState<Date | null>(() => {
+  const [dateValue, setDateValue] = useState<Date | null>(() => {
     if (initialDate === "") return null;
     else return new Date(initialDate);
   });
@@ -33,22 +33,16 @@ const PopoverSchedule: React.FC<Props> = ({
     onToggle: onToggleCalendar,
   } = useDisclosure();
 
-  const displayedDate =
-    dateValue?.toDateString() === new Date().toDateString()
-      ? "Today"
-      : dateValue?.toDateString() ===
-        new Date(Date.now() + 1000 * 60 * 60 * 24).toDateString()
-      ? "Tomorrow"
-      : dateValue?.toDateString().split(" ").slice(1, 3).join(" ");
+  const displayedDate = getDisplayedDate(dateValue ?? "");
 
   const onChangeHandler = (newDate: Date) => {
     onCloseCalendar();
-    onChange(newDate);
+    setDateValue(newDate);
     onSelectDate(newDate.toDateString());
   };
   const noDateHandler = () => {
     onCloseCalendar();
-    onChange(null);
+    setDateValue(null);
     onSelectDate("");
   };
 
@@ -76,17 +70,17 @@ const PopoverSchedule: React.FC<Props> = ({
         boxShadow="md"
       >
         <PopoverBody display="flex" flexDir="column">
-          <PopoverItem
-            text="No Date"
-            onClick={noDateHandler}
-            icon={<FaMinusCircle />}
-          />
           <StyledCalendar
             minDate={new Date()}
             value={dateValue}
             prev2Label={null}
             next2Label={null}
             onChange={onChangeHandler}
+          />
+          <PopoverItem
+            text="No Date"
+            onClick={noDateHandler}
+            icon={<FaMinusCircle />}
           />
         </PopoverBody>
       </PopoverContent>

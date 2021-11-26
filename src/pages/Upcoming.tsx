@@ -2,6 +2,7 @@ import { useContext } from "react";
 import Main from "../components/Main/Main";
 import TaskItem from "../components/Task/TaskItem";
 import { TodoContext } from "../store/TodoProvider";
+import { getTimeFromDateString } from "../utils/DateConverter";
 import PageHelmet from "./PageHelmet";
 
 const Upcoming: React.FC = () => {
@@ -11,17 +12,16 @@ const Upcoming: React.FC = () => {
   const shouldTaskHaveDue = notCompletedTasks.filter(
     (task) =>
       task.due !== "" &&
-      new Date(task.due).getTime() !==
-        new Date(new Date().toDateString()).getTime()
+      getTimeFromDateString(task.due) !==
+        getTimeFromDateString(new Date().toDateString())
   );
   const taskSortedByDue = shouldTaskHaveDue.sort((task1, task2) => {
-    return new Date(task1.due).getTime() - new Date(task2.due).getTime();
+    return getTimeFromDateString(task1.due) - getTimeFromDateString(task2.due);
   });
 
   return (
     <>
       <PageHelmet title="Upcoming: Todoist Clone" />
-
       <Main projectName={"Upcoming"} projectId="">
         {taskSortedByDue.length === 0
           ? []

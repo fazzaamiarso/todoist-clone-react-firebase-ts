@@ -1,4 +1,10 @@
-import { addDoc, collection, serverTimestamp } from "@firebase/firestore";
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  updateDoc,
+} from "@firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 import { firestore } from "./firebase";
 
 export const taskDbRef = collection(firestore, "tasks");
@@ -15,7 +21,7 @@ export interface Project {
 export interface Task {
   taskName: string;
   id: string;
-  projectId: string | null;
+  projectId: string;
   userId: string;
   completed: boolean;
   due: string;
@@ -36,6 +42,18 @@ export const createNewTask = async ({
     timestamp: serverTimestamp(),
   });
 };
+export const updateTask = <T>(
+  taskId: string,
+  updatedValue: Task extends T ? T : never
+) => {
+  return updateDoc(doc(firestore, "tasks", taskId), {
+    ...updatedValue,
+    timestamp: serverTimestamp(),
+  });
+};
+export const deleteTask = (taskId: string) => {
+  return deleteDoc(doc(firestore, "tasks", taskId));
+};
 
 export const createNewProject = async ({
   name,
@@ -48,4 +66,18 @@ export const createNewProject = async ({
     color,
     timestamp: serverTimestamp(),
   });
+};
+
+export const updateProject = <T>(
+  projectId: string,
+  updatedValue: Project extends T ? T : never
+) => {
+  return updateDoc(doc(firestore, "projects", projectId), {
+    ...updatedValue,
+    timestamp: serverTimestamp(),
+  });
+};
+
+export const deleteProject = (projectId: string) => {
+  return deleteDoc(doc(firestore, "projects", projectId));
 };

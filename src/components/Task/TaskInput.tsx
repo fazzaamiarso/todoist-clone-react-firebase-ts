@@ -20,10 +20,10 @@ interface Props {
 const TaskInput: React.FC<Props> = ({ onCloseEditor }) => {
   const { projectId } = useParams();
   const { user } = useContext(TodoContext);
-  const inputRef = useRef<HTMLInputElement>(null);
   const [taskInput, setTaskInput] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedProject, setSelectedProject] = useState(projectId ?? "");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -41,7 +41,6 @@ const TaskInput: React.FC<Props> = ({ onCloseEditor }) => {
   };
 
   const AddTaskHandler = async () => {
-    if (taskInput === "") return;
     try {
       await createNewTask({
         taskName: taskInput,

@@ -2,13 +2,12 @@ import {
   HStack,
   Spacer,
   Text,
-  useBoolean,
   useDisclosure,
   useToast,
   VStack,
 } from "@chakra-ui/react";
-import { deleteDoc, doc, updateDoc } from "@firebase/firestore";
-import { firestore } from "../../utils/firebase";
+import { getDisplayedDate } from "../../utils/DateConverter";
+import { deleteTask, updateTask } from "../../utils/firestore";
 import PopoverTask from "../Shared/Popover/PopoverTask";
 import TaskCheckbox from "./TaskCheckbox";
 import TaskEdit from "./TaskEdit";
@@ -20,7 +19,12 @@ interface Props {
   due: string;
 }
 
-const TaskItem: React.FC<Props> = ({ taskName, completed, id, due }) => {
+const TaskItem: React.FC<Props> = ({
+  taskName,
+  completed,
+  id: taskId,
+  due,
+}) => {
   const toast = useToast();
   const {
     isOpen: isUpdating,
@@ -28,16 +32,20 @@ const TaskItem: React.FC<Props> = ({ taskName, completed, id, due }) => {
     onOpen: onOpenUpdate,
   } = useDisclosure();
 
-  const [, month, day] = due.split(" ");
+  const displayedDate = getDisplayedDate(due);
 
   const toggleCompletedHandler = async () => {
-    await updateDoc(doc(firestore, "tasks", `${id}`), {
-      completed: !completed,
-    });
+    try {
+      await updateTask(taskId, {
+        completed: !completed,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const deleteTaskHandler = async () => {
-    await deleteDoc(doc(firestore, "tasks", `${id}`));
+    await deleteTask(taskId);
   };
 
   const updateTaskHandler = async (updatedField: {
@@ -46,14 +54,11 @@ const TaskItem: React.FC<Props> = ({ taskName, completed, id, due }) => {
     projectId: string;
   }) => {
     try {
-      await updateDoc(doc(firestore, "tasks", `${id}`), {
-        ...updatedField,
-      });
+      await updateTask(taskId, updatedField);
       toast({
         description: `Project change successful!`,
         status: "success",
         duration: 5000,
-        isClosable: true,
       });
     } catch (error) {
       console.log(error);
@@ -77,12 +82,7 @@ const TaskItem: React.FC<Props> = ({ taskName, completed, id, due }) => {
             </Text>
             {due!! && (
               <Text color="teal" fontSize="xs">
-                {due === new Date().toDateString()
-                  ? "Today"
-                  : due ===
-                    new Date(Date.now() + 1000 * 60 * 60 * 24).toDateString()
-                  ? "Tomorrow"
-                  : due.split(" ").slice(1, 3).join(" ")}
+                {displayedDate}
               </Text>
             )}
           </VStack>

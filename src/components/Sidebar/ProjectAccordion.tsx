@@ -18,6 +18,7 @@ import ProjectItem from "./ProjectItem";
 const ProjectAccordion: React.FC = () => {
   const { projects } = useContext(TodoContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const isNoProjects = projects.length === 0;
 
   return (
     <>
@@ -40,7 +41,7 @@ const ProjectAccordion: React.FC = () => {
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4} as="ul">
-            {projects.length === 0 ? (
+            {isNoProjects ? (
               <Text size={"sm"}>You have no project</Text>
             ) : (
               projects.map((project) => {

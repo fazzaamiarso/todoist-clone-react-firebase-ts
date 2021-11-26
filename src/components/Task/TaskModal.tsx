@@ -32,8 +32,8 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
     setTaskInput(e.target.value);
   };
   const closeHandler = () => {
-    setTaskInput("");
     onClose();
+    setTaskInput("");
   };
 
   const selectDateHandler = (newDate: string) => {
@@ -44,8 +44,6 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
   };
 
   const addNewTask = async () => {
-    if (taskInput === "") return;
-
     onClose();
     setTaskInput("");
     try {

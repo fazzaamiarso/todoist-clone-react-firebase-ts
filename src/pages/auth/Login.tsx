@@ -6,6 +6,7 @@ import { Link as BaseLink, useNavigate } from "react-router-dom";
 import { Container } from "@chakra-ui/react";
 import { useState } from "react";
 import { handleSignIn } from "../../utils/firebaseAuth";
+import PageHelmet from "../PageHelmet";
 
 const Login: React.FC = () => {
   let navigate = useNavigate();
@@ -33,53 +34,62 @@ const Login: React.FC = () => {
   };
 
   return (
-    <Container
-      mt={8}
-      centerContent
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      heigh="100vh"
-    >
-      <VStack maxH="100%">
-        <Heading as="h2">Login</Heading>
-        <FormControl isRequired>
-          <FormLabel>Email</FormLabel>
-          <Input
-            placeholder="Email"
-            type="email"
-            value={emailValue}
-            onChange={handleEmailChange}
-          />
-        </FormControl>
-        <FormControl isRequired>
-          <FormLabel>Password</FormLabel>
-          <Input
-            placeholder="Password"
-            type="password"
-            value={passwordValue}
-            onChange={handlePasswordChange}
-          />
-        </FormControl>
-        <Text>
-          Don't have an account?
-          <Link as={BaseLink} to="/signup" color="blue" fontWeight="500" ml={4}>
-            Sign up here
-          </Link>
-        </Text>
-        <Button
-          width="100%"
-          bg="blue.400"
-          mr={4}
-          color="white"
-          onClick={signInHandler}
-          isLoading={isLoading}
-          loadingText="Logging you in"
-        >
-          Log in
-        </Button>
-      </VStack>
-    </Container>
+    <>
+      <PageHelmet title="Todoist Clone Firebase" />
+      <Container
+        mt={8}
+        centerContent
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        heigh="100vh"
+      >
+        <VStack maxH="100%">
+          <Heading as="h2">Login</Heading>
+          <FormControl isRequired>
+            <FormLabel>Email</FormLabel>
+            <Input
+              placeholder="Email"
+              type="email"
+              value={emailValue}
+              onChange={handleEmailChange}
+            />
+          </FormControl>
+          <FormControl isRequired>
+            <FormLabel>Password</FormLabel>
+            <Input
+              placeholder="Password"
+              type="password"
+              value={passwordValue}
+              onChange={handlePasswordChange}
+            />
+          </FormControl>
+          <Text>
+            Don't have an account?
+            <Link
+              as={BaseLink}
+              to="/signup"
+              color="blue"
+              fontWeight="500"
+              ml={4}
+            >
+              Sign up here
+            </Link>
+          </Text>
+          <Button
+            width="100%"
+            bg="blue.400"
+            mr={4}
+            color="white"
+            onClick={signInHandler}
+            isLoading={isLoading}
+            loadingText="Logging you in"
+          >
+            Log in
+          </Button>
+        </VStack>
+      </Container>
+    </>
   );
 };
 

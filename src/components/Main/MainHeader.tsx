@@ -1,8 +1,6 @@
 import { Heading, HStack, Spacer, useDisclosure } from "@chakra-ui/react";
-import { updateDoc } from "@firebase/firestore";
-import { deleteDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router";
-import { firestore } from "../../utils/firebase";
+import { deleteProject, updateProject } from "../../utils/firestore";
 import ProjectEdit from "../Project/ProjectEdit";
 import PopoverProject from "../Shared/Popover/PopoverProject";
 import EditableTitle from "./EditableTitle";
@@ -17,20 +15,20 @@ const MainHeader: React.FC<Props> = ({ projectName, projectId }) => {
   const { isOpen: isUpdating, onOpen, onClose } = useDisclosure();
 
   const updateTitle = async (value: string) => {
-    await updateDoc(doc(firestore, "projects", `${projectId}`), {
+    await updateProject(projectId, {
       name: value,
     });
   };
-  const deleteProject = async () => {
+  const deleteProjectHandler = async () => {
     navigate("/app/inbox");
-    await deleteDoc(doc(firestore, "projects", `${projectId}`));
+    await deleteProject(projectId);
   };
-  const updateProject = async (updatedField: {
+  const updateProjectHandler = async (updatedField: {
     name: string;
     color: string;
   }) => {
     onClose();
-    await updateDoc(doc(firestore, "projects", `${projectId}`), updatedField);
+    await updateProject(projectId, updatedField);
   };
 
   return (
@@ -46,7 +44,7 @@ const MainHeader: React.FC<Props> = ({ projectName, projectId }) => {
       <Spacer />
       {projectId !== "" && (
         <PopoverProject
-          onDeleteProject={deleteProject}
+          onDeleteProject={deleteProjectHandler}
           onOpenEditor={onOpen}
           projectName={projectName}
         />
@@ -54,10 +52,10 @@ const MainHeader: React.FC<Props> = ({ projectName, projectId }) => {
       {projectId !== "" && isUpdating && (
         <ProjectEdit
           isOpen={isUpdating}
+          projectName={projectName}
           projectId={projectId}
           onClose={onClose}
-          onUpdateProject={updateProject}
-          projectName={projectName}
+          onUpdateProject={updateProjectHandler}
         />
       )}
     </HStack>
