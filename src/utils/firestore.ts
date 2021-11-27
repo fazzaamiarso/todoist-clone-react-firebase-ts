@@ -4,13 +4,19 @@ import {
   serverTimestamp,
   updateDoc,
 } from "@firebase/firestore";
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, setDoc } from "firebase/firestore";
 import { firestore } from "./firebase";
 
 export const taskDbRef = collection(firestore, "tasks");
 export const projectsDbRef = collection(firestore, "projects");
 export const usersDbRef = collection(firestore, "users");
 
+export interface UserData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  id: string;
+}
 export interface Project {
   name: string;
   userId: string;
@@ -80,4 +86,10 @@ export const updateProject = <T>(
 
 export const deleteProject = (projectId: string) => {
   return deleteDoc(doc(firestore, "projects", projectId));
+};
+export const addNewUser = (uid: string, userData: UserData) => {
+  return setDoc(doc(firestore, "users", uid), {
+    ...userData,
+    createdAt: serverTimestamp(),
+  });
 };

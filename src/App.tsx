@@ -1,9 +1,9 @@
 import { ChakraProvider, theme } from "@chakra-ui/react";
 import { Route, Routes } from "react-router-dom";
 import Content from "./components/Content/Content";
-import Login from "./pages/auth/Login";
+import LoginFormik from "./pages/auth/LoginFormik";
 import PrivateRoute from "./pages/auth/PrivateRoute";
-import Signup from "./pages/auth/Signup";
+import SignupFormik from "./pages/auth/SignupFormik";
 import Inbox from "./pages/Inbox";
 import Project from "./pages/Project";
 import Today from "./pages/Today";
@@ -26,8 +26,8 @@ function App() {
           <Route path="app/upcoming" element={<Upcoming />} />
           <Route path="projects/:projectId" element={<Project />} />
         </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<LoginFormik />} />
+        <Route path="/signup" element={<SignupFormik />} />
       </Routes>
     </ChakraProvider>
   );

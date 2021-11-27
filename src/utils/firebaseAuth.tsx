@@ -12,7 +12,7 @@ export const handleSignUp = (email: string, password: string) => {
 export const handleSignIn = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
-export const handleSignAnonymuously = () => {
+export const handleSignAnonymously = () => {
   return signInAnonymously(auth);
 };
 export const handleSignOut = () => {
