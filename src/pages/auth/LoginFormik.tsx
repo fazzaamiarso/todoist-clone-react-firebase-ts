@@ -1,12 +1,13 @@
 import { Button } from "@chakra-ui/button";
 import { Flex, Heading, Text, VStack, Link } from "@chakra-ui/layout";
 import { Link as BaseLink, useNavigate } from "react-router-dom";
-import { Container } from "@chakra-ui/react";
+import { Container, useToast } from "@chakra-ui/react";
 import { handleSignAnonymously, handleSignIn } from "../../utils/firebaseAuth";
 import PageHelmet from "../PageHelmet";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import InputField from "../../Formik/InputField";
+import { getErrorMessage } from "../../utils/FirebaseAuthError";
 
 interface MyFormValues {
   email: string;
@@ -19,6 +20,7 @@ const validationSchema = Yup.object({
 });
 
 const LoginFormik: React.FC = () => {
+  const toast = useToast();
   let navigate = useNavigate();
 
   const initialValues: MyFormValues = {
@@ -30,8 +32,14 @@ const LoginFormik: React.FC = () => {
     try {
       await handleSignIn(email, password);
       navigate("/app/inbox", { replace: true });
-    } catch (err) {
-      alert(err);
+    } catch (error) {
+      const errorMessage = getErrorMessage(error.code);
+      toast({
+        description: errorMessage,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
   const anonymousHandler = async () => {
@@ -50,8 +58,8 @@ const LoginFormik: React.FC = () => {
         centerContent
         display="flex"
         alignItems="center"
-        justifyContent="center"
-        heigh="100vh"
+        minH="100vh"
+        py={100}
       >
         <Heading as="h2">Login</Heading>
         <Formik
@@ -104,7 +112,7 @@ const LoginFormik: React.FC = () => {
                   Log in Anonymously
                 </Button>
               </VStack>
-              <Text fontSize="xs" position="fixed" bottom="4">
+              <Text fontSize="xs" position="fixed" bottom="4" right="100px">
                 Todoist Clone by Fazza Amiarso{" "}
               </Text>
             </VStack>

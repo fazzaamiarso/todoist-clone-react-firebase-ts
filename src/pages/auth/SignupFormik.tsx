@@ -8,6 +8,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import InputField from "../../Formik/InputField";
 import { addNewUser } from "../../utils/firestore";
+import { getErrorMessage } from "../../utils/FirebaseAuthError";
 
 interface SignupValues {
   email: string;
@@ -58,8 +59,14 @@ const SignupFormik: React.FC = () => {
         duration: 9000,
         isClosable: true,
       });
-    } catch (err) {
-      alert(err);
+    } catch (error) {
+      const errorMessage = getErrorMessage(error.code);
+      toast({
+        description: errorMessage,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
 
@@ -71,9 +78,13 @@ const SignupFormik: React.FC = () => {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        heigh="100vh"
+        minH="100vh"
+        py={2}
+        pb={32}
       >
-        <Heading as="h2">Signup</Heading>
+        <Heading as="h2" pb="8">
+          Signup
+        </Heading>
         <Formik
           initialValues={initialValues}
           onSubmit={signUpHandler}
