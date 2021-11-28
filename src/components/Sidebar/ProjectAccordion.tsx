@@ -42,7 +42,9 @@ const ProjectAccordion: React.FC = () => {
           </h2>
           <AccordionPanel pb={4} as="ul">
             {isNoProjects ? (
-              <Text size={"sm"}>You have no project</Text>
+              <Text size={"sm"} pl={4}>
+                You have no project
+              </Text>
             ) : (
               projects.map((project) => {
                 return (

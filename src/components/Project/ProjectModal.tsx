@@ -9,6 +9,7 @@ import {
   FormControl,
   FormLabel,
   ButtonGroup,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { TodoContext } from "../../store/TodoProvider";
@@ -22,6 +23,8 @@ interface Props {
 }
 
 const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
+  const modalSizes = useBreakpointValue(["xs", "md"]);
+
   const { user } = useContext(TodoContext);
   const [projectInput, setProjectInput] = useState("");
   const [color, setColor] = useState("gray");
@@ -44,7 +47,7 @@ const ProjectModal: React.FC<Props> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered size={modalSizes}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{"Add project"}</ModalHeader>
