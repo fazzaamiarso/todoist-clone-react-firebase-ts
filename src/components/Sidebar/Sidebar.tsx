@@ -64,8 +64,8 @@ const Container = styled.div<{ isOpen: boolean }>`
   opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
   background-color: #fafaf2;
   padding-top: 5rem;
-  * {
-    display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+  a {
+    display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
   }
   .active {
     background-color: rgba(0, 0, 0, 0.05);
