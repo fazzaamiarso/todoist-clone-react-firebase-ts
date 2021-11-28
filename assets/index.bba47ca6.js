@@ -8,8 +8,8 @@ var Je=Object.defineProperty,Qe=Object.defineProperties;var Ye=Object.getOwnProp
   opacity: ${({isOpen:n})=>n?"1":"0"};
   background-color: #fafaf2;
   padding-top: 5rem;
-  * {
-    display: ${({isOpen:n})=>n?"block":"none"};
+  a {
+    display: ${({isOpen:n})=>n?"flex":"none"};
   }
   .active {
     background-color: rgba(0, 0, 0, 0.05);
