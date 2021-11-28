@@ -138,9 +138,6 @@ const SignupFormik: React.FC = () => {
                   Signup
                 </Button>
               </VStack>
-              <Text fontSize="xs" position="fixed" bottom="4">
-                Todoist Clone by Fazza Amiarso{" "}
-              </Text>
             </VStack>
           )}
         </Formik>

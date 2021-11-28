@@ -7,12 +7,13 @@ import { FaCalendarAlt, FaCalendarDay, FaInbox } from "react-icons/fa";
 
 interface Props {
   isOpen: boolean;
+  onClose: () => void;
 }
 
-const Sidebar: React.FC<Props> = ({ isOpen }) => {
+const Sidebar: React.FC<Props> = ({ isOpen, onClose }) => {
   return (
     <>
-      {isOpen && <MobileOverlay />}
+      {isOpen && <MobileOverlay onClick={onClose} />}
       <Container isOpen={isOpen}>
         <VStack pl={4}>
           <Button
@@ -63,6 +64,9 @@ const Container = styled.div<{ isOpen: boolean }>`
   opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
   background-color: #fafaf2;
   padding-top: 5rem;
+  & > * {
+    display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+  }
   .active {
     background-color: rgba(0, 0, 0, 0.05);
   }

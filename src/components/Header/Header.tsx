@@ -7,13 +7,18 @@ import { FaHome, FaBars, FaPlus } from "react-icons/fa";
 import { Link as BaseLink } from "react-router-dom";
 import { TodoContext } from "../../store/TodoProvider";
 import { handleSignOut } from "../../utils/firebaseAuth";
+import Tooltip from "../Shared/Tooltip";
 import TaskModal from "../Task/TaskModal";
 
 interface Props {
   onToggle: () => void;
+  isSidebarOpen: boolean;
 }
 
-const Header: React.FC<Props> = ({ onToggle }) => {
+const Header: React.FC<Props> = ({
+  onToggle: onToggleSidebar,
+  isSidebarOpen,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user } = useContext(TodoContext);
   const signOutHandler = async () => {
@@ -34,29 +39,35 @@ const Header: React.FC<Props> = ({ onToggle }) => {
         width="100%"
       >
         <ButtonGroup variant="ghost">
-          <IconButton
-            aria-label="menu"
-            icon={<FaBars />}
-            color="white"
-            onClick={onToggle}
-          />
-          <IconButton
-            aria-label="home"
-            icon={<FaHome />}
-            color="white"
-            to="/app/inbox"
-            as={BaseLink}
-          />
+          <Tooltip tooltipLabel={isSidebarOpen ? "Close menu" : "Open menu"}>
+            <IconButton
+              aria-label="menu"
+              icon={<FaBars />}
+              color="white"
+              onClick={onToggleSidebar}
+            />
+          </Tooltip>
+          <Tooltip tooltipLabel="Go to home">
+            <IconButton
+              aria-label="home"
+              icon={<FaHome />}
+              color="white"
+              to="/app/inbox"
+              as={BaseLink}
+            />
+          </Tooltip>
         </ButtonGroup>
         <Spacer />
         <HStack spacing="4">
-          <IconButton
-            aria-label="plus"
-            icon={<FaPlus />}
-            variant="ghost"
-            color="white"
-            onClick={onOpen}
-          />
+          <Tooltip tooltipLabel="Quick Add">
+            <IconButton
+              aria-label="plus"
+              icon={<FaPlus />}
+              variant="ghost"
+              color="white"
+              onClick={onOpen}
+            />
+          </Tooltip>
           <Button onClick={signOutHandler} size="sm">
             Logout
           </Button>

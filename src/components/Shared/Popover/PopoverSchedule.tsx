@@ -11,6 +11,7 @@ import {
   PopoverContent,
   PopoverBody,
   useDisclosure,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { getDisplayedDate } from "../../../utils/DateConverter";
 
@@ -23,6 +24,7 @@ const PopoverSchedule: React.FC<Props> = ({
   onSelectDate,
   initialDate = "",
 }) => {
+  const placementResponsive = useBreakpointValue(["bottom", "left"]);
   const [dateValue, setDateValue] = useState<Date | null>(() => {
     if (initialDate === "") return null;
     else return new Date(initialDate);
@@ -50,7 +52,7 @@ const PopoverSchedule: React.FC<Props> = ({
     <Popover
       isLazy
       closeOnBlur
-      placement="left"
+      placement="auto-end"
       isOpen={isOpen}
       onClose={onCloseCalendar}
     >

@@ -7,6 +7,7 @@ import {
   ModalBody,
   Input,
   ButtonGroup,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router";
@@ -22,6 +23,8 @@ interface Props {
 }
 
 const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
+  const modalSizes = useBreakpointValue(["xs", "md"]);
+
   const { projectId } = useParams();
   const { user } = useContext(TodoContext);
   const [taskInput, setTaskInput] = useState("");
@@ -59,7 +62,7 @@ const TaskModal: React.FC<Props> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={closeHandler} isCentered>
+    <Modal isOpen={isOpen} onClose={closeHandler} isCentered size={modalSizes}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>New Task</ModalHeader>

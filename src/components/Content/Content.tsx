@@ -14,9 +14,9 @@ const Content: React.FC<Props> = ({ children }) => {
 
   return (
     <>
-      <Header onToggle={onToggleBar} />
+      <Header onToggle={onToggleBar} isSidebarOpen={isOpen} />
       <Flex width="100vw" minH="100vh">
-        <Sidebar isOpen={isOpen} />
+        <Sidebar isOpen={isOpen} onClose={onToggleBar} />
         <Flex alignItems="center" flexDir="column" mx="auto" width="100%">
           <Outlet />
         </Flex>
