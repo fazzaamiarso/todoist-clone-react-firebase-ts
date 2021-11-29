@@ -1,14 +1,14 @@
 import { Button } from "@chakra-ui/button";
-import { Heading, Text, VStack, Link } from "@chakra-ui/layout";
-import { Link as BaseLink, useNavigate } from "react-router-dom";
+import { Heading, Link, Text, VStack } from "@chakra-ui/layout";
 import { Container, useToast } from "@chakra-ui/react";
-import { handleSignUp } from "../../utils/firebaseAuth";
-import PageHelmet from "../PageHelmet";
-import { Formik, Form } from "formik";
+import { Form, Formik } from "formik";
+import { Link as BaseLink, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import InputField from "../../Formik/InputField";
-import { addNewUser } from "../../utils/firestore";
+import { handleSignUp } from "../../utils/firebaseAuth";
 import { getErrorMessage } from "../../utils/FirebaseAuthError";
+import { addNewUser } from "../../utils/firestore";
+import PageHelmet from "../PageHelmet";
 
 interface SignupValues {
   email: string;
