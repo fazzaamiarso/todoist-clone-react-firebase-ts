@@ -62,4 +62,4 @@ I decided to implement the Bulletproof-React architecture in my project. Althoug
 
 ## Next steps
 
-I am going to study more to finally do some refactoring in this app and then implementing more featuresm. So, it can be closer to Todoist App
+I am going to study more to finally do some refactoring in this app and then implementing more features. So, it can be closer to Todoist App
