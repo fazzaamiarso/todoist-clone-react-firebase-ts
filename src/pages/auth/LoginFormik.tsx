@@ -97,6 +97,7 @@ const LoginFormik: React.FC = () => {
                 <Button
                   type="submit"
                   isLoading={props.isSubmitting}
+                  isDisabled={!!props.errors.email && !!props.errors.password}
                   isFullWidth
                   colorScheme="blue"
                 >
