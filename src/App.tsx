@@ -1,15 +1,15 @@
 import { ChakraProvider, Spinner, theme } from "@chakra-ui/react";
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import Content from "./components/Content/Content";
 import PrivateRoute from "./pages/auth/PrivateRoute";
+import Inbox from "./pages/Inbox";
+import Project from "./pages/Project";
+import Today from "./pages/Today";
+import Upcoming from "./pages/Upcoming";
 
 const Login = lazy(() => import("./pages/auth/LoginFormik"));
 const Signup = lazy(() => import("./pages/auth/SignupFormik"));
-const Inbox = lazy(() => import("./pages/Inbox"));
-const Project = lazy(() => import("./pages/Project"));
-const Today = lazy(() => import("./pages/Today"));
-const Upcoming = lazy(() => import("./pages/Upcoming"));
+const Content = lazy(() => import("./components/Content/Content"));
 
 function App() {
   return (

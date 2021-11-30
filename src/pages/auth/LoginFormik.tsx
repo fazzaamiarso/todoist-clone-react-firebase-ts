@@ -2,7 +2,11 @@ import { Button } from "@chakra-ui/button";
 import { Flex, Heading, Text, VStack, Link } from "@chakra-ui/layout";
 import { Link as BaseLink, useNavigate } from "react-router-dom";
 import { Container, useToast } from "@chakra-ui/react";
-import { handleSignAnonymously, handleSignIn } from "../../utils/firebaseAuth";
+import {
+  handleSignAnonymously,
+  handleSignIn,
+  setAuthPersistence,
+} from "../../utils/firebaseAuth";
 import PageHelmet from "../PageHelmet";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -30,6 +34,7 @@ const LoginFormik: React.FC = () => {
 
   const signInHandler = async ({ email, password }: MyFormValues) => {
     try {
+      await setAuthPersistence();
       await handleSignIn(email, password);
       navigate("/app/inbox", { replace: true });
     } catch (error) {

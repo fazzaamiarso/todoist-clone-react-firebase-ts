@@ -1,6 +1,7 @@
 import { Button } from "@chakra-ui/button";
 import { Heading, Link, Text, VStack } from "@chakra-ui/layout";
 import { Container, useToast } from "@chakra-ui/react";
+import { updateProfile } from "@firebase/auth";
 import { Form, Formik } from "formik";
 import { Link as BaseLink, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
@@ -50,6 +51,9 @@ const SignupFormik: React.FC = () => {
           firstName,
           lastName,
           id: newUser.user.uid,
+        });
+        await updateProfile(newUser.user, {
+          displayName: `${firstName} ${lastName}`,
         });
       }
       navigate("/app/inbox", { replace: true });

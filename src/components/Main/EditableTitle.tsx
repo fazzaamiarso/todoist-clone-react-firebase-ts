@@ -37,7 +37,7 @@ const EditableTitle: React.FC<Props> = ({ initialValue, onChangeTitle }) => {
 
   useEffect(() => {
     setValue(initialValue);
-  }, [location]);
+  }, [location, initialValue]);
 
   const submitHandler = (currentValue: string) => {
     if (currentValue === initialValue) return;

@@ -4,6 +4,9 @@ import {
   signOut,
   signInWithEmailAndPassword,
   signInAnonymously,
+  setPersistence,
+  browserSessionPersistence,
+  browserLocalPersistence,
 } from "firebase/auth";
 
 export const handleSignUp = (email: string, password: string) => {
@@ -17,4 +20,7 @@ export const handleSignAnonymously = () => {
 };
 export const handleSignOut = () => {
   return signOut(auth);
+};
+export const setAuthPersistence = () => {
+  return setPersistence(auth, browserLocalPersistence);
 };

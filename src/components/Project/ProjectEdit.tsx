@@ -35,7 +35,7 @@ const ProjectEdit: React.FC<Props> = ({
   const [projectInput, setProjectInput] = useState(currentProject.name);
   const [color, setColor] = useState(currentProject.color);
   const isEqualToPreviousValue =
-    projectInput === currentProject?.name && color === currentProject?.color;
+    projectInput === currentProject.name && color === currentProject.color;
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProjectInput(e.target.value);

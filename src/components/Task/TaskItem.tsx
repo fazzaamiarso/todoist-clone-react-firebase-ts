@@ -56,7 +56,7 @@ const TaskItem: React.FC<Props> = ({
     try {
       await updateTask(taskId, updatedField);
       toast({
-        description: `Project change successful!`,
+        description: `Update successful!`,
         status: "success",
         duration: 5000,
       });

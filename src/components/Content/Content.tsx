@@ -3,6 +3,7 @@ import { Flex } from "@chakra-ui/layout";
 import { ReactNode } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../Header/Header";
+import ErrorBoundary from "../Shared/ErrorBoundary";
 import Sidebar from "../Sidebar/Sidebar";
 
 interface Props {
@@ -18,7 +19,9 @@ const Content: React.FC<Props> = ({ children }) => {
       <Flex width="100vw" minH="100vh">
         <Sidebar isOpen={isOpen} onClose={onToggleBar} />
         <Flex alignItems="center" flexDir="column" mx="auto" width="100%">
-          <Outlet />
+          <ErrorBoundary>
+            <Outlet />
+          </ErrorBoundary>
         </Flex>
       </Flex>
     </>

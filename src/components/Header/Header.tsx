@@ -72,7 +72,7 @@ const Header: React.FC<Props> = ({
             Logout
           </Button>
           <Avatar
-            name={(user && user.email) ?? ""}
+            name={(user && user.displayName) ?? ""}
             src="no-link"
             _hover={{ cursor: "pointer" }}
           />
