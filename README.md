@@ -1,5 +1,7 @@
 # Todoist Clone with React-TS-Firebase
 
+![Screenshot of Todoist Clone](/images/Todoist-ss.png)
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/0215b2a5-8596-4e5c-8664-6ad3a2d585bd/deploy-status)](https://app.netlify.com/sites/simple-todoist-clone/deploys)
 
 Live Site: [https://simple-todoist-clone.netlify.app](https://simple-todoist-clone.netlify.app/).
@@ -13,7 +15,7 @@ Welcome to my first big project. I choose to do a todoist clone because there ar
 - Firebase Authentication
 - Firebase Cloud Firestore
 - React Router
-- React Helmet
+- React Helmet (Async)
 - React Calendar
 - Formik
 
